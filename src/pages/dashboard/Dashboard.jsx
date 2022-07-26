@@ -27,9 +27,11 @@ const Dashboard = () => {
 
   return (
     <div className="cards-all">
-      {status
-        ? employees.map((data, index) => <Cards key={index} data={data} />)
-        : msg}
+      {status ? (
+        employees.map((data, index) => <Cards key={index} data={data} />)
+      ) : (
+        <p className="text-danger mb-1">{msg}</p>
+      )}
     </div>
   );
 };

@@ -305,6 +305,7 @@ const AddEmployee = () => {
             onChange={handleChange}
           >
             <option value="">{status ? "loading" : "select "}</option>
+            <option value="0">N/A</option>
             {departs?.map((type) => (
               <option key={type.depart} value={type.departId}>
                 {type.depart}
@@ -328,6 +329,7 @@ const AddEmployee = () => {
             onChange={handleChange}
           >
             <option value="">{status ? "loading" : "select "}</option>
+            <option value="0">N/A</option>
             {subDep?.map((type) => (
               <option key={type.subDepartmentNames} value={type.subDepartId}>
                 {type.subDepartmentNames}
@@ -654,56 +656,54 @@ const AddEmployee = () => {
     },
   ];
   return (
-    <>
-      <div id="add-employee" className="container-sm ">
-        <h1 className="title text-center">Employee profile</h1>
+    <div id="add-employee" className="container-sm ">
+      <h1 className="title text-center">Employee profile</h1>
 
-        <Form onSubmit={handleSubmit}>
-          <h4>Employee Details</h4>
-          <hr></hr>
-          <div className="form">
-            {formData.map((item) => (
-              <Fragment key={item.id}>
-                {item?.data ? (
-                  item.data
-                ) : (
-                  <FormInputs
-                    id={item.id}
-                    title={item.title}
-                    name={item.name}
-                    type={item.type}
-                    placeholder={item.placeholder}
-                    required={item.required}
-                    defaultValue={item.defaultValue}
-                    handleChange={item.handleChange}
-                    pattern={item.pattern}
-                    message={item.message}
-                  />
-                )}
-              </Fragment>
-            ))}
-          </div>
-          <Button className="btn-signup px-2" type="submit">
-            Submit
-          </Button>{" "}
-          <Button as={Link} to="/dashboard" variant="danger" className="px-2">
-            Cancel
-          </Button>
-          {/* </Col> */}
-          {status && (
-            <p className="text-success mb-2">
-              Please wait while we are processing your request.
-            </p>
-          )}
-          {/* {errors && (
+      <Form onSubmit={handleSubmit}>
+        <h4>Employee Details</h4>
+        <hr></hr>
+        <div className="form">
+          {formData.map((item) => (
+            <Fragment key={item.id}>
+              {item?.data ? (
+                item.data
+              ) : (
+                <FormInputs
+                  id={item.id}
+                  title={item.title}
+                  name={item.name}
+                  type={item.type}
+                  placeholder={item.placeholder}
+                  required={item.required}
+                  defaultValue={item.defaultValue}
+                  handleChange={item.handleChange}
+                  pattern={item.pattern}
+                  message={item.message}
+                />
+              )}
+            </Fragment>
+          ))}
+        </div>
+        <Button className="btn-signup px-2" type="submit">
+          Submit
+        </Button>{" "}
+        <Button as={Link} to="/dashboard" variant="danger" className="px-2">
+          Cancel
+        </Button>
+        {/* </Col> */}
+        {status && (
+          <p className="text-success mb-2">
+            Please wait while we are processing your request.
+          </p>
+        )}
+        {/* {errors && (
             <p className="text-danger mb-2">
               Network error. Please try again later.
             </p>
           )} */}
-          {<p className="text-danger mb-2">{msg}</p>}
-        </Form>
-      </div>
-    </>
+        {<p className="text-danger mb-2">{msg}</p>}
+      </Form>
+    </div>
   );
 };
 

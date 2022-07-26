@@ -1,15 +1,17 @@
 import React from "react";
 import { useState } from "react";
 import { Button, Modal, Col, Row, Form } from "react-bootstrap";
-import moment from "moment";
+// import moment from "moment";
 import "./modelComponent.css";
 import { useEffect } from "react";
 import ApiService from "../../services/ApiService";
+import SubEmployee from "../subEmployee/SubEmployee";
 
 function ModelComponent(props) {
   // console.log(props.data);
   const [data, setData] = useState({});
   const [disabled, setDisabled] = useState(false);
+  const [status, setStatus] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevState) => ({
@@ -22,23 +24,28 @@ function ModelComponent(props) {
     // console.log(data);
   };
 
-  const handleEdit = () => {
-    setDisabled(true);
-  };
+  // const handleEdit = () => {
+  //   setDisabled(true);
+  // };
   const handleClose = () => {
     props.onHide();
   };
 
   useEffect(() => {
-    ApiService.getEmployeeById(props.data)
-      .then((res) => {
-        // console.log(res.data);
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [props.data]);
+    if (props.show) {
+      setStatus(true);
+      ApiService.getEmployeeById(props.data)
+        .then((res) => {
+          console.log(res.data);
+          setData(res.data);
+          setStatus(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setStatus(false);
+        });
+    }
+  }, [props.data, props.show]);
 
   return (
     <>
@@ -58,13 +65,14 @@ function ModelComponent(props) {
           </Button>
         </Modal.Header>
         <Modal.Body>
+          {status && <p className="text-success mb-1">loading...</p>}
           <Form onSubmit={handleSubmit}>
             <Row xs="auto">
               <Col>
                 <h5>Employee Details</h5>
                 <hr></hr>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="firstName">EmployeeID</Form.Label>
+                  <Form.Label htmlFor="employeeId">EmployeeID</Form.Label>
                   <Form.Control
                     name="employeeId"
                     id="employeeId"
@@ -72,20 +80,35 @@ function ModelComponent(props) {
                     disabled={disabled ? "" : "disabled"}
                     type="text"
                     placeholder="Enter employeeId"
-                    defaultValue={data.employeeId}
+                    defaultValue={data.employeeDetailsResponse?.employeeId}
                     onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="lastName">Employee name</Form.Label>
+                  <Form.Label htmlFor="firstName">
+                    Employee first name
+                  </Form.Label>
                   <Form.Control
-                    name="employeeName"
-                    id="employeeName"
+                    name="firstName"
+                    id="firstName"
                     required
                     type="text"
-                    placeholder="enter employee name"
+                    placeholder="enter firstName name"
                     disabled={disabled ? "" : "disabled"}
-                    defaultValue={data.employeeName}
+                    defaultValue={data.employeeDetailsResponse?.firstName}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="lastName">Employee last name</Form.Label>
+                  <Form.Control
+                    name="lastName"
+                    id="lastName"
+                    required
+                    type="text"
+                    placeholder="enter last name"
+                    disabled={disabled ? "" : "disabled"}
+                    defaultValue={data.employeeDetailsResponse?.lastName}
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -98,26 +121,24 @@ function ModelComponent(props) {
                     type="date"
                     placeholder="Enter joining Date"
                     disabled={disabled ? "" : "disabled"}
-                    defaultValue={moment(data?.joiningDate).format(
-                      "YYYY-MM-DD"
-                    )}
+                    defaultValue={data.employeeDetailsResponse?.joiningDate}
                     onChange={handleChange}
                   />
                 </Form.Group>
-                {/* <Form.Group className="mb-3">
-                <Form.Label htmlFor="email">Email</Form.Label>
-                <Form.Control
-                  name="email"
-                  id="email"
-                  // autoComplete="email"
-                  required
-                  type="email"
-                  placeholder="name@gmail.com"
-                  disabled={disabled ? "" : "disabled"}
-                  defaultValue={data.email}
-                  onChange={handleChange}
-                />
-              </Form.Group> */}
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="email">Email</Form.Label>
+                  <Form.Control
+                    name="email"
+                    id="email"
+                    // autoComplete="email"
+                    required
+                    type="email"
+                    placeholder="name@gmail.com"
+                    disabled={disabled ? "" : "disabled"}
+                    defaultValue={data.employeeDetailsResponse?.email}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label htmlFor="dateOfBirth">Date of Birth</Form.Label>
                   <Form.Control
@@ -126,7 +147,77 @@ function ModelComponent(props) {
                     required
                     type="date"
                     disabled={disabled ? "" : "disabled"}
-                    defaultValue={moment(data.dob).format("YYYY-MM-DD")}
+                    defaultValue={data.employeeDetailsResponse?.dob}
+                    // moment(
+                    //   data.employeeDetailsResponse?.dob
+                    // ).format("YYYY-MM-DD")
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="gender">Gender</Form.Label>
+                  <Form.Control
+                    name="gender"
+                    id="gender"
+                    required
+                    type="text"
+                    placeholder="enter gender"
+                    disabled={disabled ? "" : "disabled"}
+                    defaultValue={data.employeeDetailsResponse?.gender}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="employeeType">Employee type</Form.Label>
+                  <Form.Control
+                    name="employeeType"
+                    id="employeeType"
+                    required
+                    type="text"
+                    placeholder="enter employeeType"
+                    disabled={disabled ? "" : "disabled"}
+                    defaultValue={data.employeeDetailsResponse?.employeeType}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="location">Location</Form.Label>
+                  <Form.Control
+                    name="location"
+                    id="location"
+                    required
+                    type="text"
+                    placeholder="enter location"
+                    disabled={disabled ? "" : "disabled"}
+                    defaultValue={data.employeeDetailsResponse?.location}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="subDepartName">
+                    Sub department Name
+                  </Form.Label>
+                  <Form.Control
+                    name="subDepartName"
+                    id="subDepartName"
+                    required
+                    type="text"
+                    placeholder="enter sub department name"
+                    disabled={disabled ? "" : "disabled"}
+                    defaultValue={data.employeeDetailsResponse?.subDepartName}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="designation">designation</Form.Label>
+                  <Form.Control
+                    name="designation"
+                    id="designation"
+                    required
+                    type="text"
+                    placeholder="enter designation"
+                    disabled={disabled ? "" : "disabled"}
+                    defaultValue={data.employeeDetailsResponse?.designation}
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -184,11 +275,11 @@ function ModelComponent(props) {
                     placeholder="please enter salary"
                     name="salary"
                     title="enter salary"
-                    defaultValue={data.salary}
+                    defaultValue={data.salary?.salary}
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3">
+                {/* <Form.Group className="mb-3">
                   <Form.Label htmlFor="practice">Practice</Form.Label>
                   <Form.Control
                     required
@@ -201,8 +292,8 @@ function ModelComponent(props) {
                     defaultValue={data.practice}
                     onChange={handleChange}
                   />
-                </Form.Group>
-                <Form.Group className="mb-3">
+                </Form.Group> */}
+                {/* <Form.Group className="mb-3">
                   <Form.Label htmlFor="designationAtLs">
                     Designation at Lancesoft
                   </Form.Label>
@@ -217,78 +308,94 @@ function ModelComponent(props) {
                     defaultValue={data.designationAtLs}
                     onChange={handleChange}
                   />
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="benchTen">Bench Tenure</Form.Label>
+                  <Form.Label htmlFor="tenure">Bench Tenure</Form.Label>
                   <Form.Control
                     disabled
-                    id="benchTen"
+                    id="tenure"
                     type="text"
-                    name="benchTen"
-                    defaultValue={data.benchTen}
+                    name="tenure"
+                    defaultValue={data.internalExpenses?.tenure}
                     // onChange={handleChange}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3">
+                {/* <Form.Group className="mb-3">
                   <Form.Label htmlFor="tenure">Tenure</Form.Label>
                   <Form.Control
                     disabled
                     id="tenure"
                     type="text"
                     name="tenure"
-                    defaultValue={data.tenure}
+                    defaultValue={data.internalExpenses?.tenure}
                     // onChange={handleChange}
                   />
-                </Form.Group>
+                </Form.Group> */}
               </Col>
               <Col>
                 <h5>Client Details</h5>
                 <hr></hr>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="designationAtClient">
+                  <Form.Label htmlFor="desgAtClient">
                     Designation at Client
                   </Form.Label>
                   <Form.Control
                     // required
-                    id="designationAtClient"
+                    id="desgAtClient"
                     type="text"
                     disabled={disabled ? "" : "disabled"}
                     placeholder="please enter designation at Client"
-                    name="designationAtLs"
+                    name="desgAtClient"
                     title="enter designation"
+                    defaultValue={data.employeesAtClientsDetails?.desgAtClient}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="clientsNames">Client Name</Form.Label>
+                  <Form.Control
+                    // required
+                    id="clientsNames"
+                    disabled={disabled ? "" : "disabled"}
+                    type="text"
+                    placeholder="please enter Client name"
+                    name="clientsNames"
+                    title="enter client name"
                     defaultValue={
-                      data.clientDetailsOfEmployee?.designationAtClient || "N/A"
+                      data.employeesAtClientsDetails?.clients?.clientsNames
                     }
                     onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="clientName">Client Name</Form.Label>
+                  <Form.Label htmlFor="clientSalary">Client Salary</Form.Label>
                   <Form.Control
                     // required
-                    id="clientName"
+                    id="clientSalary"
+                    type="number"
                     disabled={disabled ? "" : "disabled"}
-                    type="text"
-                    placeholder="please enter Client name"
-                    name="clientName"
-                    title="enter client name"
-                    defaultValue={data.clientDetailsOfEmployee?.clientName}
+                    placeholder="please enter Client salary"
+                    name="totalEarningAtclient"
+                    title="enter Total Client billing"
+                    defaultValue={data.employeesAtClientsDetails?.clientSalary}
                     onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="clientBilling">
-                    Client billing
+                  <Form.Label htmlFor="totalEarningAtclient">
+                    Total Billing at Client
                   </Form.Label>
                   <Form.Control
                     // required
-                    id="clientBilling"
+                    id="totalEarningAtclient"
                     type="number"
                     disabled={disabled ? "" : "disabled"}
-                    placeholder="please enter Client billing"
-                    name="clientBilling"
-                    title="enter Client billing"
-                    defaultValue={data.clientDetailsOfEmployee?.clientBilling}
+                    placeholder="please enter Client salary"
+                    name="totalEarningAtclient"
+                    title="enter Total Client billing"
+                    defaultValue={
+                      data.employeesAtClientsDetails?.totalEarningAtclient
+                    }
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -302,9 +409,7 @@ function ModelComponent(props) {
                     placeholder="please enter PO Start date"
                     name="poSdate"
                     title="enter PO Start date"
-                    defaultValue={moment(
-                      data.clientDetailsOfEmployee?.poSdate
-                    ).format("YYYY-MM-DD")}
+                    defaultValue={data.employeesAtClientsDetails?.posdate}
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -314,13 +419,11 @@ function ModelComponent(props) {
                     // required
                     id="poEdate"
                     disabled={disabled ? "" : "disabled"}
-                    type="date"
-                    placeholder="please enter PO end date"
+                    type="text"
+                    placeholder="Present"
                     name="poEdate"
                     title="enter PO end date"
-                    defaultValue={moment(
-                      data.clientDetailsOfEmployee?.poEdate
-                    ).format("YYYY-MM-DD")}
+                    defaultValue={data.employeesAtClientsDetails?.poedate}
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -329,38 +432,43 @@ function ModelComponent(props) {
                 <h5>Bill</h5>
                 <hr></hr>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="paidTillNow">Paid Till Now</Form.Label>
+                  <Form.Label htmlFor="paidTillNow">
+                    Total salary paid till now
+                  </Form.Label>
                   <Form.Control
                     disabled
                     id="paidTillNow"
                     type="text"
                     name="paidTillNow"
-                    defaultValue={data.bill?.paidTillNow}
+                    defaultValue={data.internalExpenses?.totalSalPaidTillNow}
                     // onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="benchExp">Total Expences</Form.Label>
+                  <Form.Label htmlFor="totalExpenses">
+                    Total Expences
+                  </Form.Label>
                   <Form.Control
                     disabled
-                    id="benchExp"
+                    id="totalExpenses"
                     type="text"
-                    name="benchExp"
-                    defaultValue={data.bill?.benchExp}
+                    name="totalExpenses"
+                    // placeholder="please enter cubical cost"
+                    defaultValue={data.internalExpenses?.totalExpenses}
                     // onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="cubicalCost">Cubical cost</Form.Label>
+                  <Form.Label htmlFor="cubicleCost">Cubical cost</Form.Label>
                   <Form.Control
                     required
                     disabled={disabled ? "" : "disabled"}
-                    id="cubicalCost"
+                    id="cubicleCost"
                     type="number"
-                    placeholder="please enter cubical cost"
-                    name="cubicalCost"
+                    // placeholder="please enter cubical cost"
+                    name="cubicleCost"
                     title="enter Cubical cost"
-                    defaultValue={data.bill?.cubicalCost}
+                    defaultValue={data.internalExpenses?.cubicleCost}
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -371,40 +479,40 @@ function ModelComponent(props) {
                     id="foodCost"
                     disabled={disabled ? "" : "disabled"}
                     type="number"
-                    placeholder="please enter food Cost"
+                    // placeholder="please enter food Cost"
                     name="foodCost"
                     title="enter food Cost"
-                    defaultValue={data.bill?.foodCost}
+                    defaultValue={data.internalExpenses?.foodCost}
                     onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="transportCost">
+                  <Form.Label htmlFor="transportationCost">
                     Transport Cost
                   </Form.Label>
                   <Form.Control
                     required
-                    id="transportCost"
+                    id="transportationCost"
                     type="number"
                     disabled={disabled ? "" : "disabled"}
-                    placeholder="please enter Transport Cost"
-                    name="transportCost"
+                    // placeholder="please enter Transport Cost"
+                    name="transportationCost"
                     title="enter Transport Cost"
-                    defaultValue={data.bill?.transportCost}
+                    defaultValue={data.internalExpenses?.transportationCost}
                     onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="profit">Profit/Loss</Form.Label>
+                  <Form.Label htmlFor="profitOrLoss">Profit/Loss</Form.Label>
                   <Form.Control
                     disabled
-                    id="profit"
+                    id="profitOrLoss"
                     type="text"
-                    name="profit"
-                    defaultValue={data.bill?.profit}
+                    name="profitOrLoss"
+                    defaultValue={data.internalExpenses?.profitOrLoss}
                   />
                 </Form.Group>
-                {disabled ? (
+                {/* {disabled ? (
                   <Button className="btn-signup" type="submit">
                     Submit
                   </Button>
@@ -423,7 +531,8 @@ function ModelComponent(props) {
                 )}{" "}
                 <Button variant="danger" onClick={() => setDisabled(false)}>
                   Cancel
-                </Button>
+                </Button> */}
+                <SubEmployee id={props.data} />
               </Col>
             </Row>
           </Form>

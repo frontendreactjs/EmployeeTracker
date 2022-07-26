@@ -8,20 +8,26 @@ import "./cards.css";
 import ApiService from "../../services/ApiService";
 function Cards(props) {
   let type = sessionStorage.getItem("type");
-  console.log(props.data);
+  // console.log(props.data);
   const [status, setStatus] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [viewEmployee, setViewEmployee] = useState(false);
   const [employee, setEmployee] = useState([]);
+  const [subEmp, setSubEmp] = useState(false);
+  const [subEmpId, setSubEmpId] = useState("");
   // const [view, setView] = useState();
   // const [data, setData] = useState({});
   // const navigate = useNavigate();
-  const handleClick = () => {
+  const handleClick = (id) => {
+    setSubEmpId(id);
+    setSubEmp(true);
     setModalShow(true);
   };
 
   const handleOnClick = () => {
     setModalShow(true);
+    setSubEmpId("");
+    setSubEmp(false);
     // ApiService.getEmployeeById(props.data.id)
     //   .then((res) => {
     //     console.log(res);
@@ -34,7 +40,7 @@ function Cards(props) {
   return (
     <>
       <ModelComponent
-        data={props.data.empId}
+        data={subEmp ? subEmpId : props.data.empId}
         type={type}
         show={modalShow}
         // view={view}
@@ -89,8 +95,6 @@ function Cards(props) {
               </Button>{" "}
               {["View Employees"].includes(props.button2) && (
                 <Button
-                  as={Link}
-                  to={`/employee/${props.data.id}`}
                   className="card-btn"
                   onClick={(e) => {
                     e.preventDefault();
@@ -109,32 +113,32 @@ function Cards(props) {
                 </Button>
               )}
               {viewEmployee &&
-                (type === "md" ? (
-                  <div>
-                    <span className="employees">1. Lead1</span>
-                    <br />
-                    <span className="employees">2. Lead2</span>
-                    <br />
-                    <span className="employees">3. Lead3</span>
-                  </div>
-                ) : (
-                  type === "manager" && (
-                    <>
-                      {employee?.map((emp, index) => (
-                        <div>
-                          <span
-                            className="employees"
-                            onClick={() => handleClick(emp.empId)}
-                          >
-                            {index + 1}. {emp.firstName}
-                          </span>
+                ["manager", "general_manager", "ch", "md"].includes(type) && (
+                  <>
+                    {!subEmp && employee?.length === 0 && (
+                      <span className="employees">
+                        <br />
+                        No Employees
+                      </span>
+                    )}
+                    {employee?.map((emp, index) => (
+                      <div key={index}>
+                        <span
+                          className="employees"
+                          onClick={() => handleClick(emp.empId)}
+                        >
+                          {index + 1}.{" "}
+                          <nobr>
+                            {emp.firstName}
+                            {emp.lastName}
+                          </nobr>
+                        </span>
 
-                          <br />
-                        </div>
-                      ))}
-                    </>
-                  )
-                ))}
+                        <br />
+                      </div>
+                    ))}
+                  </>
+                )}
               {/* <div>
                 <span className="employees" onClick={() => handleClick(1)}>
                   1. associate1

@@ -25,6 +25,7 @@ const Login = () => {
         const username = jwt(res.data.token).sub;
         // console.log(username);
         sessionStorage.setItem("username", username);
+        sessionStorage.setItem("Id", res.data.empId);
         setStatus(false);
         setErrors(false);
         // alert(`Login Successful `);

@@ -6,7 +6,9 @@ import ModelComponent from "../model/ModelComponent";
 import "./header.css";
 export default function Header() {
   let type = sessionStorage.getItem("type");
+  let navPath = `/${type}`;
   // console.log(type);
+  let id = sessionStorage.getItem("Id");
   const [modalShow, setModalShow] = useState(false);
   const [token, setToken] = useState(sessionStorage.getItem("Access_Token"));
   // const username = sessionStorage.getItem("username");
@@ -30,7 +32,7 @@ export default function Header() {
       <Navbar className="color-nav" expand="lg">
         <Container>
           <Navbar.Brand>
-            <Link to="/hr" id="navbar-brand">
+            <Link to={navPath} id="navbar-brand">
               <img
                 src={lancesoft_logo}
                 className="icon"
@@ -175,12 +177,12 @@ export default function Header() {
                       Logout
                     </Link>
                   </>
-                ) : ["md"].includes(type) ? (
+                ) : ["md", "general_manager", "ch"].includes(type) ? (
                   <>
                     <p>Total</p>
-                    <Link className="m-2" to="/" id="nav-link">
+                    {/* <Link className="m-2" to="/" id="nav-link">
                       Approve
-                    </Link>
+                    </Link> */}
                     <Button
                       variant="link"
                       id="nav-link"
@@ -252,7 +254,7 @@ export default function Header() {
         </Container>
       </Navbar>
       <ModelComponent
-        // data={props.data.id}
+        data={id}
         // type={props.type}
         show={modalShow}
         // view={view}

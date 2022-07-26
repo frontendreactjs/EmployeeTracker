@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Cards from "../../components/cards/Cards";
-import Header from "../../components/header/Header";
+// import Header from "../../components/header/Header";
 import ApiService from "../../services/ApiService";
 import "./lead.css";
 function Lead() {
@@ -25,13 +25,16 @@ function Lead() {
   }, []);
 
   return (
-    <>
-      <div className="lead">
-        {employees.map((employee) => (
+    <div className="lead">
+      {status ? (
+        employees.map((employee) => <Cards key={employee.id} data={employee} />)
+      ) : (
+        <p className="text-danger mb-1">{msg}</p>
+      )}
+      {/* {employees.map((employee) => (
           <Cards key={employee.empId} data={employee} />
-        ))}
-      </div>
-    </>
+        ))} */}
+    </div>
   );
 }
 

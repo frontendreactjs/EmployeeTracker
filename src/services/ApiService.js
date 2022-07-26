@@ -7,7 +7,7 @@ const BASE_URL = "http://10.81.4.195:2022"; // umer pc
 
 //get
 const ALL_EMPLOYEES = `${BASE_URL}/api/v1/emp/getEmps`;
-const ALL_EMPLOYEES_BY_ID = `${BASE_URL}/api/v1/emp/getting/id?id=`;
+const ALL_EMPLOYEES_BY_ID = `${BASE_URL}/api/v1/emp/get-emp-crosspnd-details?id=`;
 const EMPLOYEE_TYPE = `${BASE_URL}/api/v1/fields/get-all-empTypes`;
 //post
 const LOGIN_API_URL = `${BASE_URL}/api/v1/auth/login`;
@@ -84,5 +84,13 @@ export default new (class ApiService {
   }
   getUnderEmployee(id) {
     return axios.get(`${BASE_URL}/api/v1/emp/get-under-emps?id=${id}`, auth());
+  }
+  addClientDetails(data, cId, eId) {
+    // http://localhost:2022/api/v1/emp/inser-empat-client?clientId=5&empId=LSI9908
+    return axios.post(
+      `${BASE_URL}/api/v1/emp/inser-empat-client?clientId=${cId}&empId=${eId}`,
+      data,
+      auth()
+    );
   }
 })();

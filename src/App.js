@@ -16,6 +16,8 @@ import MD from "./pages/md/MD";
 import Manager from "./pages/manager/Manager";
 import AddClientDetails from "./pages/addClientDetails/AddClientDetails";
 import Lead from "./pages/lead/Lead";
+import { GeneralManager } from "./pages/generalmanager/GeneralManager";
+import { Ch } from "./pages/ch/Ch";
 
 function App() {
   return (
@@ -130,6 +132,22 @@ function App() {
             element={
               <PrivateRoutes>
                 <Lead />
+              </PrivateRoutes>
+            }
+          />
+          <Route
+            path="/general_manager"
+            element={
+              <PrivateRoutes>
+                <GeneralManager />
+              </PrivateRoutes>
+            }
+          />
+          <Route
+            path="/ch"
+            element={
+              <PrivateRoutes>
+                <Ch />
               </PrivateRoutes>
             }
           />

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import Header from "../../components/header/Header";
+
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { FormInputs } from "../../components/formInputs/FormInputs";
@@ -11,6 +11,7 @@ function AddClientDetails() {
   const [data, setData] = useState({});
   const [status, setStatus] = useState(false);
   const [clients, setClients] = useState(null);
+  let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -23,11 +24,11 @@ function AddClientDetails() {
     e.preventDefault();
     setStatus(true);
     // setErrors(false);
-    ApiService.insertEmployee(data)
+    ApiService.addClientDetails(data, data.clientsId, data.empId)
       .then((res) => {
         console.log(res.data);
         alert("successfull");
-        navigate("/dashboard");
+        navigate(`/${type}`);
         setStatus(false);
         setStatus(false);
       })
@@ -53,11 +54,11 @@ function AddClientDetails() {
     {
       id: "employeeID",
       title: "Employee ID",
-      name: "employeeID",
+      name: "empId",
       type: "text",
       placeholder: "Enter Employee ID",
       required: true,
-      defaultValue: data.employeeID,
+      defaultValue: data.empId,
       handleChange: handleChange,
     },
     {
@@ -94,76 +95,83 @@ function AddClientDetails() {
     //   handleChange: handleChange,
     // },
     {
-      id: "salaryPerMonth",
-      title: "Salary per month",
-      name: "salaryPerMonth",
+      id: "clientSalary",
+      title: "Client billing",
+      name: "clientSalary",
       type: "text",
-      placeholder: "Enter Salary per month",
+      placeholder: "Enter client billing",
       required: true,
-      defaultValue: data.salaryPerMonth,
+      defaultValue: data.clientSalary,
       handleChange: handleChange,
     },
     {
-      id: "PosDate",
+      id: "desgAtClient",
+      title: "Desgination at client",
+      name: "desgAtClient",
+      type: "text",
+      placeholder: "Enter designation at client",
+      required: true,
+      defaultValue: data.desgAtClient,
+      handleChange: handleChange,
+    },
+    {
+      id: "Posdate",
       title: "POS Date",
-      name: "posDate",
+      name: "posdate",
       type: "date",
       placeholder: "Enter POS Date",
       required: true,
-      defaultValue: data.posDate,
+      defaultValue: data.posdate,
       handleChange: handleChange,
     },
     {
-      id: "PoeDate",
+      id: "Poedate",
       title: "POE Date",
-      name: "poeDate",
+      name: "poedate",
       type: "date",
       placeholder: "Enter POE Date",
-      required: true,
-      defaultValue: data.poeDate,
+      required: false,
+      defaultValue: data.poedate,
       handleChange: handleChange,
     },
   ];
   return (
-    <>
-      <Header type="manager" />
-      <div id="add-employee" className="container-sm ">
-        <h1 className="title text-center">Add Client Details</h1>
+    <div id="add-employee" className="container-sm ">
+      <h1 className="title text-center">Add Client Details</h1>
 
-        <Form onSubmit={handleSubmit}>
-          <h4>Employee Details</h4>
-          <hr></hr>
-          {errors && (
-            <p className="text-danger mb-2">Network problem please try again</p>
-          )}
-          {!errors && (
-            <div className="form">
-              {formData.map((item) => (
-                <Fragment key={item.id}>
-                  {item?.data ? (
-                    item.data
-                  ) : (
-                    <FormInputs
-                      id={item.id}
-                      title={item.title}
-                      name={item.name}
-                      type={item.type}
-                      placeholder={item.placeholder}
-                      required={item.required}
-                      defaultValue={item.defaultValue}
-                      handleChange={item.handleChange}
-                    />
-                  )}
-                </Fragment>
-              ))}
-            </div>
-          )}
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
-      </div>
-    </>
+      <Form onSubmit={handleSubmit}>
+        <h4>Employee Details</h4>
+        <hr></hr>
+        {errors && (
+          <p className="text-danger mb-2">Network problem please try again</p>
+        )}
+        {!errors && (
+          <div className="form">
+            {formData.map((item) => (
+              <Fragment key={item.id}>
+                {item?.data ? (
+                  item.data
+                ) : (
+                  <FormInputs
+                    id={item.id}
+                    title={item.title}
+                    name={item.name}
+                    type={item.type}
+                    placeholder={item.placeholder}
+                    required={item.required}
+                    defaultValue={item.defaultValue}
+                    handleChange={item.handleChange}
+                  />
+                )}
+              </Fragment>
+            ))}
+          </div>
+        )}
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </div>
   );
 }
 

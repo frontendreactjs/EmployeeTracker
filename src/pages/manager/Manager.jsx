@@ -26,17 +26,19 @@ function Manager() {
 
   return (
     <div className="lead">
-      {status
-        ? employees.map((employee) => (
-            <Cards
-              key={employee.id}
-              data={employee}
-              button="View profile"
-              button2="View Employees"
-              type="manager"
-            />
-          ))
-        : msg}
+      {status ? (
+        employees.map((employee, index) => (
+          <Cards
+            key={index}
+            data={employee}
+            button="View profile"
+            button2="View Employees"
+            type="manager"
+          />
+        ))
+      ) : (
+        <p className="text-danger mb-1">{msg}</p>
+      )}
     </div>
   );
 }
