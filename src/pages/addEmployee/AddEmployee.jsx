@@ -17,15 +17,27 @@ const AddEmployee = () => {
   const [addTypes, setAddTypes] = useState(null);
   const [departs, setDeparts] = useState(null);
   const [subDep, setSubDep] = useState(null);
+  const [supId, setSupId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
+    if (value > 0) {
+      ApiService.supervisorId(value)
+        .then((res) => {
+          console.log(res.data);
+          setSupId(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          setSupId(null);
+        });
+    }
     // setData((prevState) => ({
     //   ...prevState,
     //   [name]: value,
     // }));
-    console.log({ data });
+    // console.log({ data });
   };
   // eslint-disable-next-line  no-unused-vars
   const [errors, setErrors] = useState(false);
@@ -405,15 +417,38 @@ const AddEmployee = () => {
       ),
     },
     {
-      id: "SupervisorId",
-      title: "Supervisor Id",
-      name: "supervisorId",
-      type: "text",
-      placeholder: "Enter Supervisor Id",
-      required: true,
-      defaultValue: data.supervisorId,
-      handleChange: handleChange,
+      id: "supervisorId",
+      data: (
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="supervisorId">Supervisor Id</Form.Label>
+          <Form.Select
+            required
+            id="supervisorId"
+            aria-label="Supervisor Id"
+            className="selectInput"
+            name="supervisorId"
+            onChange={handleChange}
+          >
+            <option value="">{status ? "loading" : "select "}</option>
+            {supId?.map((type) => (
+              <option key={type.desgId} value={type.empId}>
+                {type.firstName} {type.lastName} ({type.lancesoftId})
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      ),
     },
+    // {
+    //   id: "SupervisorId",
+    //   title: "Supervisor Id",
+    //   name: "supervisorId",
+    //   type: "text",
+    //   placeholder: "Enter Supervisor Id",
+    //   required: true,
+    //   defaultValue: data.supervisorId,
+    //   handleChange: handleChange,
+    // },
     {
       id: "country",
       title: "Country",

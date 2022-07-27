@@ -179,7 +179,9 @@ export default function Header() {
                   </>
                 ) : ["md", "general_manager", "ch"].includes(type) ? (
                   <>
-                    <p>Total</p>
+                    <p className="total" id="nav-link">
+                      Total
+                    </p>
                     {/* <Link className="m-2" to="/" id="nav-link">
                       Approve
                     </Link> */}
@@ -201,7 +203,7 @@ export default function Header() {
                   </>
                 ) : ["manager"].includes(type) ? (
                   <>
-                    <p as={Link} id="nav-link">
+                    <p className="total" id="nav-link">
                       Total
                     </p>
                     <Link
@@ -229,7 +231,9 @@ export default function Header() {
                   </>
                 ) : ["lead"].includes(type) ? (
                   <>
-                    <p>Total</p>
+                    <p className="total" id="nav-link">
+                      Total
+                    </p>
                     <Button
                       variant="link"
                       id="nav-link"

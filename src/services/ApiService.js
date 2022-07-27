@@ -93,4 +93,11 @@ export default new (class ApiService {
       auth()
     );
   }
+  supervisorId(id) {
+    // http://10.81.4.195:2022/api/v1/emp/get-supvisor-dropdown?id=6
+    return axios.get(
+      `${BASE_URL}/api/v1/emp/get-supvisor-dropdown?id=${id}`,
+      auth()
+    );
+  }
 })();

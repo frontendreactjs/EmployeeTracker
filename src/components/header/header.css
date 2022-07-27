@@ -41,7 +41,11 @@
 }
 #nav-link:hover {
   font-weight: bold;
+  color: rgb(20, 4, 65);
   /* color: #14e1de; */
+}
+.total {
+  margin-top: 15px;
 }
 .color-nav {
   /* animation: upDown 1s 0.5s 1 linear; */
@@ -52,7 +56,7 @@
   background: linear-gradient(to right, #ffffff, #1316f2); */
   /* Created with https://www.css-gradient.com */
   background: #f5f5f5;
-  background: -webkit-linear-gradient(left, #f5f5f5, #6a6bec);
+  background: -webkit-linear-gradient(left, #f5f5f5, #3131c7);
   background: -moz-linear-gradient(left, #f5f5f5, #6a6bec);
   background: linear-gradient(to right, #f5f5f5, #6a6bec);
   /* border-radius: 5px; */

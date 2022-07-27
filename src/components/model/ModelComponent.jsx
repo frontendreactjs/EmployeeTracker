@@ -69,7 +69,7 @@ function ModelComponent(props) {
           <Form onSubmit={handleSubmit}>
             <Row xs="auto">
               <Col>
-                <h5>Employee Details</h5>
+                <h5 className="modelHeading">Employee Details</h5>
                 <hr></hr>
                 <Form.Group className="mb-3">
                   <Form.Label htmlFor="employeeId">EmployeeID</Form.Label>
@@ -193,34 +193,7 @@ function ModelComponent(props) {
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="subDepartName">
-                    Sub department Name
-                  </Form.Label>
-                  <Form.Control
-                    name="subDepartName"
-                    id="subDepartName"
-                    required
-                    type="text"
-                    placeholder="enter sub department name"
-                    disabled={disabled ? "" : "disabled"}
-                    defaultValue={data.employeeDetailsResponse?.subDepartName}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="designation">designation</Form.Label>
-                  <Form.Control
-                    name="designation"
-                    id="designation"
-                    required
-                    type="text"
-                    placeholder="enter designation"
-                    disabled={disabled ? "" : "disabled"}
-                    defaultValue={data.employeeDetailsResponse?.designation}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
+
                 {/* <Form.Group className="mb-3 checkbox">
                 <Form.Label>Gender : </Form.Label>{" "}
                 <Form.Check
@@ -265,20 +238,7 @@ function ModelComponent(props) {
                   onChange={handleChange}
                 />
               </Form.Group> */}
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="salary">Salary</Form.Label>
-                  <Form.Control
-                    required
-                    disabled={disabled ? "" : "disabled"}
-                    id="salary"
-                    type="number"
-                    placeholder="please enter salary"
-                    name="salary"
-                    title="enter salary"
-                    defaultValue={data.salary?.salary}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
+
                 {/* <Form.Group className="mb-3">
                   <Form.Label htmlFor="practice">Practice</Form.Label>
                   <Form.Control
@@ -309,17 +269,7 @@ function ModelComponent(props) {
                     onChange={handleChange}
                   />
                 </Form.Group> */}
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="tenure">Bench Tenure</Form.Label>
-                  <Form.Control
-                    disabled
-                    id="tenure"
-                    type="text"
-                    name="tenure"
-                    defaultValue={data.internalExpenses?.tenure}
-                    // onChange={handleChange}
-                  />
-                </Form.Group>
+
                 {/* <Form.Group className="mb-3">
                   <Form.Label htmlFor="tenure">Tenure</Form.Label>
                   <Form.Control
@@ -332,104 +282,185 @@ function ModelComponent(props) {
                   />
                 </Form.Group> */}
               </Col>
-              <Col>
-                <h5>Client Details</h5>
-                <hr></hr>
+              <Col className="break">
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="desgAtClient">
-                    Designation at Client
+                  <Form.Label htmlFor="subDepartName">
+                    Sub department Name
                   </Form.Label>
                   <Form.Control
-                    // required
-                    id="desgAtClient"
+                    name="subDepartName"
+                    id="subDepartName"
+                    required
                     type="text"
+                    placeholder="enter sub department name"
                     disabled={disabled ? "" : "disabled"}
-                    placeholder="please enter designation at Client"
-                    name="desgAtClient"
-                    title="enter designation"
-                    defaultValue={data.employeesAtClientsDetails?.desgAtClient}
+                    defaultValue={data.employeeDetailsResponse?.subDepartName}
                     onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="clientsNames">Client Name</Form.Label>
+                  <Form.Label htmlFor="designation">designation</Form.Label>
                   <Form.Control
-                    // required
-                    id="clientsNames"
-                    disabled={disabled ? "" : "disabled"}
+                    name="designation"
+                    id="designation"
+                    required
                     type="text"
-                    placeholder="please enter Client name"
-                    name="clientsNames"
-                    title="enter client name"
-                    defaultValue={
-                      data.employeesAtClientsDetails?.clients?.clientsNames
-                    }
+                    placeholder="enter designation"
+                    disabled={disabled ? "" : "disabled"}
+                    defaultValue={data.employeeDetailsResponse?.designation}
                     onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="clientSalary">Client Salary</Form.Label>
+                  <Form.Label htmlFor="tenure">Bench Tenure</Form.Label>
                   <Form.Control
-                    // required
-                    id="clientSalary"
+                    disabled
+                    id="tenure"
+                    type="text"
+                    name="tenure"
+                    defaultValue={data.internalExpenses?.tenure}
+                    // onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="salary">Salary</Form.Label>
+                  <Form.Control
+                    required
+                    disabled={disabled ? "" : "disabled"}
+                    id="salary"
                     type="number"
-                    disabled={disabled ? "" : "disabled"}
-                    placeholder="please enter Client salary"
-                    name="totalEarningAtclient"
-                    title="enter Total Client billing"
-                    defaultValue={data.employeesAtClientsDetails?.clientSalary}
+                    placeholder="please enter salary"
+                    name="salary"
+                    title="enter salary"
+                    defaultValue={data.salary?.salary}
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="totalEarningAtclient">
-                    Total Billing at Client
-                  </Form.Label>
-                  <Form.Control
-                    // required
-                    id="totalEarningAtclient"
-                    type="number"
-                    disabled={disabled ? "" : "disabled"}
-                    placeholder="please enter Client salary"
-                    name="totalEarningAtclient"
-                    title="enter Total Client billing"
-                    defaultValue={
-                      data.employeesAtClientsDetails?.totalEarningAtclient
-                    }
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="poSdate">PO Start date</Form.Label>
-                  <Form.Control
-                    // required
-                    id="poSdate"
-                    type="date"
-                    disabled={disabled ? "" : "disabled"}
-                    placeholder="please enter PO Start date"
-                    name="poSdate"
-                    title="enter PO Start date"
-                    defaultValue={data.employeesAtClientsDetails?.posdate}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="poEdate">PO end date</Form.Label>
-                  <Form.Control
-                    // required
-                    id="poEdate"
-                    disabled={disabled ? "" : "disabled"}
-                    type="text"
-                    placeholder="Present"
-                    name="poEdate"
-                    title="enter PO end date"
-                    defaultValue={data.employeesAtClientsDetails?.poedate}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
+                {["lead", "Consultant"].includes(
+                  data.employeeDetailsResponse?.designation
+                ) && (
+                  <>
+                    <h5 className="modelHeading">Client Details</h5>
+                    <hr></hr>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="desgAtClient">
+                        Designation at Client
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="desgAtClient"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder="please enter designation at Client"
+                        name="desgAtClient"
+                        title="enter designation"
+                        defaultValue={
+                          data.employeesAtClientsDetails?.desgAtClient
+                        }
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="clientsNames">
+                        Client Name
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="clientsNames"
+                        disabled={disabled ? "" : "disabled"}
+                        type="text"
+                        placeholder="please enter Client name"
+                        name="clientsNames"
+                        title="enter client name"
+                        defaultValue={
+                          data.employeesAtClientsDetails?.clients?.clientsNames
+                        }
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="clientSalary">
+                        Client Salary
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="clientSalary"
+                        type="number"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder="please enter Client salary"
+                        name="totalEarningAtclient"
+                        title="enter Total Client billing"
+                        defaultValue={
+                          data.employeesAtClientsDetails?.clientSalary
+                        }
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalEarningAtclient">
+                        Total Billing at Client
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="totalEarningAtclient"
+                        type="number"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder="please enter Client salary"
+                        name="totalEarningAtclient"
+                        title="enter Total Client billing"
+                        defaultValue={
+                          data.employeesAtClientsDetails?.totalEarningAtclient
+                        }
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                  </>
+                )}
               </Col>
-              <Col>
-                <h5>Bill</h5>
+              <Col
+                className={
+                  ["lead", "Consultant"].includes(
+                    data.employeeDetailsResponse?.designation
+                  )
+                    ? "break"
+                    : ""
+                }
+              >
+                {["lead", "Consultant"].includes(
+                  data.employeeDetailsResponse?.designation
+                ) && (
+                  <>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="poSdate">PO Start date</Form.Label>
+                      <Form.Control
+                        // required
+                        id="poSdate"
+                        type="date"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder="please enter PO Start date"
+                        name="poSdate"
+                        title="enter PO Start date"
+                        defaultValue={data.employeesAtClientsDetails?.posdate}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="poEdate">PO end date</Form.Label>
+                      <Form.Control
+                        // required
+                        id="poEdate"
+                        disabled={disabled ? "" : "disabled"}
+                        type="text"
+                        placeholder="Present"
+                        name="poEdate"
+                        title="enter PO end date"
+                        defaultValue={data.employeesAtClientsDetails?.poedate}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                  </>
+                )}
+                <h5 className="modelHeading">Bill</h5>
                 <hr></hr>
                 <Form.Group className="mb-3">
                   <Form.Label htmlFor="paidTillNow">

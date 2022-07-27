@@ -37,18 +37,20 @@ export default function SubEmployee({ id }) {
             .then((res) => {
               console.log(res.data);
               setEmployee(res.data);
+              setSubEmp(true);
             })
             .catch((err) => {
               console.log(err);
+              setSubEmp(false);
             });
         }}
       >
         {viewEmployee ? "Hide" : "View Employees"}
       </Button>
       {viewEmployee &&
-        ["manager", "general_manager", "ch", "md"].includes(type) && (
+        ["manager", "general_manager", "ch", "md", "hr"].includes(type) && (
           <>
-            {!subEmp && employee?.length === 0 && (
+            {subEmp && employee?.length === 0 && (
               <span className="employees">
                 <br />
                 No Employees
