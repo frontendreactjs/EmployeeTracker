@@ -1,10 +1,15 @@
-import React from "react";
+import React, { Fragment, useEffect } from "react";
 import { useState } from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
+import { FormInputs } from "../../components/formInputs/FormInputs";
+import ApiService from "../../services/ApiService";
 
 function Register() {
   const [data, setData] = useState({});
+  const [roles, setRoles] = useState(null);
+  const [status, setStatus] = useState(false);
+  const [msg, setMsg] = useState("");
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -15,166 +20,174 @@ function Register() {
   };
   const [errors, setErrors] = useState(false);
   const navigate = useNavigate();
+
+  const formData = [
+    {
+      id: "firstName",
+      title: "Employee first name",
+      name: "firstName",
+      type: "text",
+      placeholder: "Enter Employee first name",
+      required: true,
+      defaultValue: data.firstName,
+      handleChange: handleChange,
+    },
+    {
+      id: "lastName",
+      title: "Employee last name",
+      name: "lastName",
+      type: "text",
+      placeholder: "Enter Employee last name",
+      required: true,
+      defaultValue: data.lastName,
+      handleChange: handleChange,
+    },
+
+    {
+      id: "email",
+      title: "Email",
+      name: "email",
+      type: "email",
+      placeholder: "Enter Email",
+      required: true,
+      defaultValue: data.email,
+      handleChange: handleChange,
+    },
+    {
+      id: "password",
+      title: "password",
+      name: "password",
+      type: "password",
+      placeholder: "Enter password",
+      required: true,
+      defaultValue: data.password,
+      handleChange: handleChange,
+    },
+    {
+      id: "phoneNo",
+      title: "Phone number",
+      name: "phoneNo",
+      type: "phoneNo",
+      placeholder: "Enter phone number",
+      required: true,
+      defaultValue: data.phoneNo,
+      handleChange: handleChange,
+    },
+    {
+      id: "username",
+      title: "username",
+      name: "username",
+      type: "username",
+      placeholder: "Enter username",
+      required: true,
+      defaultValue: data.username,
+      handleChange: handleChange,
+    },
+    {
+      id: "role",
+      data: (
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="role">Role</Form.Label>
+          <Form.Select
+            required
+            id="role"
+            aria-label="role"
+            className="selectInput"
+            name="role"
+            onChange={handleChange}
+          >
+            <option value="">{status ? "loading" : "select "}</option>
+            {/* <option value="1">N/A</option> */}
+            {roles?.map((type) => (
+              <option key={type.roleName} value={type.roleName}>
+                {type.roleName}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      ),
+    },
+  ];
+  useEffect(() => {
+    ApiService.getAllRoles()
+      .then((res) => {
+        console.log(res.data);
+        setRoles(res.data);
+        setStatus(false);
+        setErrors(false);
+        setMsg("");
+      })
+      .catch((error) => {
+        console.log(error);
+        setRoles(null);
+        setStatus(false);
+        setErrors(true);
+        setMsg(error.message);
+      });
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (data.password && data.password !== data.confirmPassword) {
-      setErrors(true);
-      return;
-    }
-
-    setErrors(false);
+    ApiService.signup(data, data.role)
+      .then((res) => {
+        console.log(res);
+        navigate("/hr");
+        setStatus(true);
+        setMsg("");
+      })
+      .catch((error) => {
+        console.log(error);
+        setStatus(false);
+        setErrors(true);
+        setMsg(error.response.data.errormessage);
+      });
     console.log(data);
   };
+
   return (
-    <div id="signup" className="container-sm ">
+    <div id="add-employee" className="container-sm ">
       <h1 className="title text-center">Create your account</h1>
       <Form onSubmit={handleSubmit}>
-        <Row>
-          <Form.Group as={Col} className="mb-3">
-            <Form.Label htmlFor="firstName">First Name</Form.Label>
-            <Form.Control
-              name="firstName"
-              id="firstName"
-              required
-              type="text"
-              placeholder="First name"
-              defaultValue={data.firstName}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group as={Col} className="mb-3">
-            <Form.Label htmlFor="lastName">Last Name</Form.Label>
-            <Form.Control
-              name="lastName"
-              id="lastName"
-              required
-              type="text"
-              placeholder="Last name"
-              defaultValue={data.lastName}
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Row>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="username">Username</Form.Label>
-          <Form.Control
-            name="username"
-            id="username"
-            required
-            type="text"
-            placeholder="Enter Username"
-            defaultValue={data.username}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="email">Email</Form.Label>
-          <Form.Control
-            name="email"
-            id="email"
-            // autoComplete="email"
-            required
-            type="email"
-            placeholder="name@gmail.com"
-            defaultValue={data.email}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Row>
-          <Form.Group as={Col} className="mb-2">
-            <Form.Label htmlFor="password">Password</Form.Label>
-            <Form.Control
-              name="password"
-              id="password"
-              required
-              type="password"
-              placeholder="Enter your password"
-              // minLength="8"
-              defaultValue={data.password}
-              onChange={handleChange}
-              // pattern="[0-9a-zA-Z][!@#$%^&*-?].{8,14}"
-            />
-          </Form.Group>
-          <Form.Group as={Col} className="mb-2">
-            <Form.Label htmlFor="confirmPassword">Confirm Password</Form.Label>
-
-            <Form.Control
-              name="confirmPassword"
-              id="confirmPassword"
-              required
-              type="password"
-              placeholder="Enter your password"
-              // minLength="8"
-              defaultValue={data.confirmPassword}
-              onChange={handleChange}
-              isInvalid={errors}
-              // pattern="^([@#](?=[^aeiou]{7,13}$)(?=[[:alnum:]]{7,13}$)(?=.*[A-Z]{1,}.*$).+)$"
-            />
-            {errors && (
-              <p className="text-danger mb-1">Password do not match</p>
-            )}
-          </Form.Group>
-        </Row>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="dateOfBirth">Date of Birth</Form.Label>
-          <Form.Control
-            name="dob"
-            id="dateOfBirth"
-            required
-            type="date"
-            defaultValue={data.dob}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3 checkbox">
-          <Form.Label>Gender : </Form.Label>{" "}
-          <Form.Check
-            required
-            inline
-            label="Male"
-            name="gender"
-            type="radio"
-            defaultValue={data.gender}
-            onChange={(e) => {
-              data.gender = "Male";
-            }}
-          />
-          <Form.Check
-            inline
-            label="Female"
-            name="gender"
-            type="radio"
-            defaultValue={data.gender}
-            onChange={(e) => {
-              data.gender = "Female";
-            }}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="phone number">Phone Number</Form.Label>
-          <Form.Control
-            // required
-            id="phone number"
-            type="tel"
-            // pattern="[+91][0-9]{13}"
-            // pattern="[0-9]{10}"
-            message="please enter correct number"
-            name="phoneNo"
-            // placeholder="+919999999999"
-            // pattern="[+91][0-9].{11}"
-            // maxLength={13}
-            title="enter phone number like +919999999999"
-            defaultValue={data.phoneNo}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Button className="btn-signup" type="submit">
-          Signup
+        <div className="form">
+          {formData.map((item) => (
+            <Fragment key={item.id}>
+              {item?.data ? (
+                item.data
+              ) : (
+                <FormInputs
+                  id={item.id}
+                  title={item.title}
+                  name={item.name}
+                  type={item.type}
+                  placeholder={item.placeholder}
+                  required={item.required}
+                  defaultValue={item.defaultValue}
+                  handleChange={item.handleChange}
+                  pattern={item.pattern}
+                  message={item.message}
+                />
+              )}
+            </Fragment>
+          ))}
+        </div>
+        <Button className="btn-signup px-2" type="submit">
+          Submit
         </Button>{" "}
-        <Button as={Link} to="/" variant="danger">
+        <Button as={Link} to="/hr" variant="danger" className="px-2">
           Cancel
         </Button>
+        {/* </Col> */}
+        {status && (
+          <p className="text-success mb-2">
+            Please wait while we are processing your request.
+          </p>
+        )}
+        {/* {errors && (
+            <p className="text-danger mb-2">
+              Network error. Please try again later.
+            </p>
+          )} */}
+        {<p className="text-danger mb-2">{msg}</p>}
       </Form>
     </div>
   );

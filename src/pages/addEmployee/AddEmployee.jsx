@@ -18,11 +18,12 @@ const AddEmployee = () => {
   const [departs, setDeparts] = useState(null);
   const [subDep, setSubDep] = useState(null);
   const [supId, setSupId] = useState(null);
+  const [errors, setErrors] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
-    if (value > 0) {
+    if (value > 0 && name === "desgId") {
       ApiService.supervisorId(value)
         .then((res) => {
           console.log(res.data);
@@ -40,7 +41,7 @@ const AddEmployee = () => {
     // console.log({ data });
   };
   // eslint-disable-next-line  no-unused-vars
-  const [errors, setErrors] = useState(false);
+
   // eslint-disable-next-line
   const navigate = useNavigate();
   const handleSubmit = (e) => {
@@ -722,7 +723,7 @@ const AddEmployee = () => {
         <Button className="btn-signup px-2" type="submit">
           Submit
         </Button>{" "}
-        <Button as={Link} to="/dashboard" variant="danger" className="px-2">
+        <Button as={Link} to="/hr" variant="danger" className="px-2">
           Cancel
         </Button>
         {/* </Col> */}

@@ -137,12 +137,22 @@ export default function Header() {
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                         <Row>
+                          <Link className="m-2" to="/hr/register" id="nav-link">
+                            Signup
+                          </Link>
                           <Link
                             className="m-2"
                             to="/hr/addEmployee"
                             id="nav-link"
                           >
                             Add Employee
+                          </Link>
+                          <Link
+                            className="m-2"
+                            to="/hr/addClientNames"
+                            id="nav-link"
+                          >
+                            Add Client Names
                           </Link>
                           <Link
                             className="m-2"

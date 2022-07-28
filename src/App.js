@@ -18,6 +18,8 @@ import AddClientDetails from "./pages/addClientDetails/AddClientDetails";
 import Lead from "./pages/lead/Lead";
 import { GeneralManager } from "./pages/generalmanager/GeneralManager";
 import { Ch } from "./pages/ch/Ch";
+import AddClientNames from "./pages/addClientNames/AddClientNames";
+import Register from "./pages/register/Register";
 
 function App() {
   return (
@@ -35,6 +37,14 @@ function App() {
               }
             />
             <Route
+              path="register"
+              element={
+                <PrivateRoutes>
+                  <Register />
+                </PrivateRoutes>
+              }
+            />
+            <Route
               path="addEmployee"
               element={
                 <PrivateRoutes>
@@ -42,6 +52,15 @@ function App() {
                 </PrivateRoutes>
               }
             />
+            <Route
+              path="addClientNames"
+              element={
+                <PrivateRoutes>
+                  <AddClientNames />
+                </PrivateRoutes>
+              }
+            />
+
             <Route
               path="promoteEmployee"
               element={

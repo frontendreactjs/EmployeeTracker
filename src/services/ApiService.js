@@ -11,7 +11,7 @@ const ALL_EMPLOYEES_BY_ID = `${BASE_URL}/api/v1/emp/get-emp-crosspnd-details?id=
 const EMPLOYEE_TYPE = `${BASE_URL}/api/v1/fields/get-all-empTypes`;
 //post
 const LOGIN_API_URL = `${BASE_URL}/api/v1/auth/login`;
-const REGISTER_API_URL = `${BASE_URL}/api/register`;
+// const REGISTER_API_URL = `${BASE_URL}/api/register`;
 const INSERT_EMP_DETAILS_API_URL = `${BASE_URL}/api/v1/emp/insert-emp-details`;
 const TEST = `http://10.81.4.195:2022/api/v1/admin/create-roles`;
 const BILL_EXPENSE = `${BASE_URL}/api/v1/exp/insert-expenses`;
@@ -34,9 +34,9 @@ export default new (class ApiService {
     return axios.post(LOGIN_API_URL, data);
   }
 
-  register(data) {
-    return axios.post(REGISTER_API_URL, data);
-  }
+  // register(data) {
+  //   return axios.post(REGISTER_API_URL, data);
+  // }
   insertEmployee(data) {
     return axios.post(
       `${INSERT_EMP_DETAILS_API_URL}?addressTypeId=${data.addTypeId}&departId=${data.departId}&desgId=${data.desgId}&subDepartId=${data.subDepartId}&subVId=${data.supervisorId}&typeId=${data.empTypeId}`,
@@ -97,6 +97,24 @@ export default new (class ApiService {
     // http://10.81.4.195:2022/api/v1/emp/get-supvisor-dropdown?id=6
     return axios.get(
       `${BASE_URL}/api/v1/emp/get-supvisor-dropdown?id=${id}`,
+      auth()
+    );
+  }
+  getEmployeeId() {
+    //localhost:2022/api/v1/emp/client-emp-dropdown
+    return axios.get(`${BASE_URL}/api/v1/emp/client-emp-dropdown`, auth());
+  }
+  addClientnames(data) {
+    return axios.post(`${BASE_URL}/api/v1/fields/insert-clients`, data, auth());
+  }
+  getAllRoles() {
+    return axios.get(`${BASE_URL}/api/v1/admin/all-roles`, auth());
+  }
+  signup(data, id) {
+    // http://localhost:2022/api/v1/admin/sign-up?roleName=LEAD
+    return axios.post(
+      `${BASE_URL}/api/v1/admin/sign-up?roleName=${id}`,
+      data,
       auth()
     );
   }

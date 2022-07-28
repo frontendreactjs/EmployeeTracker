@@ -11,6 +11,7 @@ function AddClientDetails() {
   const [data, setData] = useState({});
   const [status, setStatus] = useState(false);
   const [clients, setClients] = useState(null);
+  const [emp, setEmp] = useState(null);
   let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,18 +50,50 @@ function AddClientDetails() {
         console.log(error);
         setClients(null);
       });
+    ApiService.getEmployeeId()
+      .then((res) => {
+        console.log(res.data);
+        setEmp(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setEmp(null);
+      });
   }, []);
   const formData = [
     {
       id: "employeeID",
-      title: "Employee ID",
-      name: "empId",
-      type: "text",
-      placeholder: "Enter Employee ID",
-      required: true,
-      defaultValue: data.empId,
-      handleChange: handleChange,
+      data: (
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="employeeID">Employee ID</Form.Label>
+          <Form.Select
+            required
+            id="employeeID"
+            aria-label="Client Name"
+            className="selectInput"
+            name="employeeID"
+            onChange={handleChange}
+          >
+            <option value="">{status ? "loading" : "select "}</option>
+            {emp?.map((type, index) => (
+              <option key={index} value={type.lancesoftId}>
+                {type.firstName} {type.lastName}({type.lancesoftId})
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      ),
     },
+    // {
+    //   id: "employeeID",
+    //   title: "Employee ID",
+    //   name: "empId",
+    //   type: "text",
+    //   placeholder: "Enter Employee ID",
+    //   required: true,
+    //   defaultValue: data.empId,
+    //   handleChange: handleChange,
+    // },
     {
       id: "clientsId",
       data: (
