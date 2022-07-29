@@ -65,7 +65,11 @@ function AddClientDetails() {
       id: "employeeID",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="employeeID">Employee ID</Form.Label>
+          <Form.Label htmlFor="employeeID">
+            Employee ID
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="employeeID"
@@ -98,7 +102,11 @@ function AddClientDetails() {
       id: "clientsId",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="clientsId">Client Name</Form.Label>
+          <Form.Label htmlFor="clientsId">
+            Client Name
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="clientsId"

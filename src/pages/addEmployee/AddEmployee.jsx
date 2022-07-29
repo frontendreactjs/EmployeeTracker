@@ -221,7 +221,10 @@ const AddEmployee = () => {
       id: "empTypeId",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="empTypeId">Employee Type</Form.Label>
+          <Form.Label htmlFor="empTypeId">
+            Employee Type <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="empTypeId"
@@ -255,7 +258,11 @@ const AddEmployee = () => {
       id: "status",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="status">Status</Form.Label>
+          <Form.Label htmlFor="status">
+            Status
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="status"
@@ -308,7 +315,11 @@ const AddEmployee = () => {
       id: "departId",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="departId">Department</Form.Label>
+          <Form.Label htmlFor="departId">
+            Department
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="departId"
@@ -332,7 +343,11 @@ const AddEmployee = () => {
       id: "subDepartId",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="subDepartId">Sub department</Form.Label>
+          <Form.Label htmlFor="subDepartId">
+            Sub department
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="subDepartId"
@@ -351,6 +366,16 @@ const AddEmployee = () => {
           </Form.Select>
         </Form.Group>
       ),
+    },
+    {
+      id: "vertical",
+      title: "Vertical",
+      name: "vertical",
+      type: "text",
+      placeholder: "Enter vertical",
+      required: true,
+      defaultValue: data.vertical,
+      handleChange: handleChange,
     },
     // {
     //   id: "partice",
@@ -398,7 +423,11 @@ const AddEmployee = () => {
       id: "desgId",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="desgId">Employee Designation</Form.Label>
+          <Form.Label htmlFor="desgId">
+            Employee Designation
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="desgId"
@@ -421,7 +450,11 @@ const AddEmployee = () => {
       id: "supervisorId",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="supervisorId">Supervisor Id</Form.Label>
+          <Form.Label htmlFor="supervisorId">
+            Supervisor Id
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="supervisorId"
@@ -515,7 +548,11 @@ const AddEmployee = () => {
       id: "addTypeId",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="addTypeId">Address Type</Form.Label>
+          <Form.Label htmlFor="addTypeId">
+            Address Type
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="addTypeId"
@@ -653,7 +690,10 @@ const AddEmployee = () => {
       id: "gender",
       data: (
         <Form.Group className="my-4 checkbox">
-          <Form.Label>Gender : </Form.Label>{" "}
+          <Form.Label>
+            Gender <nobr />
+            <span className="text-danger"> *</span> :{" "}
+          </Form.Label>{" "}
           <Form.Check
             required
             inline

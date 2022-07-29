@@ -20,6 +20,7 @@ import { GeneralManager } from "./pages/generalmanager/GeneralManager";
 import { Ch } from "./pages/ch/Ch";
 import AddClientNames from "./pages/addClientNames/AddClientNames";
 import Register from "./pages/register/Register";
+import AddDepartment from "./pages/addDepartment/AddDepartment";
 
 function App() {
   return (
@@ -52,15 +53,15 @@ function App() {
                 </PrivateRoutes>
               }
             />
+
             <Route
-              path="addClientNames"
+              path="addDepartment"
               element={
                 <PrivateRoutes>
-                  <AddClientNames />
+                  <AddDepartment />
                 </PrivateRoutes>
               }
             />
-
             <Route
               path="promoteEmployee"
               element={
@@ -142,6 +143,14 @@ function App() {
               element={
                 <PrivateRoutes>
                   <AddClientDetails />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="addClientNames"
+              element={
+                <PrivateRoutes>
+                  <AddClientNames />
                 </PrivateRoutes>
               }
             />

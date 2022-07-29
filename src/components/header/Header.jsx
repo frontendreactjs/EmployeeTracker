@@ -1,20 +1,24 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { Button, Container, Dropdown, Nav, Navbar, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import lancesoft_logo from "../../lancesoft_logo.png";
+import ApiService from "../../services/ApiService";
 import ModelComponent from "../model/ModelComponent";
 import "./header.css";
 export default function Header() {
   let type = sessionStorage.getItem("type");
+  let user = sessionStorage.getItem("firstName");
   let navPath = `/${type}`;
   // console.log(type);
   let id = sessionStorage.getItem("Id");
   const [modalShow, setModalShow] = useState(false);
+  const [total, setTotal] = useState(0);
   const [token, setToken] = useState(sessionStorage.getItem("Access_Token"));
   // const username = sessionStorage.getItem("username");
   const handlefunction = () => {
     sessionStorage.clear();
-    alert(`Logout Successful`);
+    // alert(`Logout Successful`);
     setToken((data) => (data = sessionStorage.getItem("Access_Token")));
   };
   const handleOnClick = () => {
@@ -27,6 +31,64 @@ export default function Header() {
     //     console.log(err);
     //   });
   };
+  useEffect(() => {
+    if (type === "lead") {
+      ApiService.totalLead()
+        .then((res) => {
+          console.log(res.data);
+          setTotal(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setTotal(0);
+        });
+    }
+    if (type === "manager") {
+      ApiService.totalManager()
+        .then((res) => {
+          console.log(res.data);
+          setTotal(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setTotal(0);
+        });
+    }
+    if (type === "general_manager") {
+      ApiService.totalManager()
+        .then((res) => {
+          console.log(res.data);
+          setTotal(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setTotal(0);
+        });
+    }
+    if (type === "ch") {
+      ApiService.totalCH()
+        .then((res) => {
+          console.log(res.data);
+          setTotal(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setTotal(0);
+        });
+    }
+
+    if (type === "md") {
+      ApiService.totalMD()
+        .then((res) => {
+          console.log(res.data);
+          setTotal(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setTotal(0);
+        });
+    }
+  }, [type]);
   return (
     <>
       <Navbar className="color-nav" expand="lg">
@@ -147,12 +209,13 @@ export default function Header() {
                           >
                             Add Employee
                           </Link>
+
                           <Link
                             className="m-2"
-                            to="/hr/addClientNames"
+                            to="/hr/addDepartment"
                             id="nav-link"
                           >
-                            Add Client Names
+                            Add department
                           </Link>
                           <Link
                             className="m-2"
@@ -171,7 +234,7 @@ export default function Header() {
                         </Row>
                       </Dropdown.Menu>
                     </Dropdown>
-                    <Button
+                    {/* <Button
                       variant="link"
                       id="nav-link"
                       onClick={() => handleOnClick()}
@@ -185,17 +248,27 @@ export default function Header() {
                       id="nav-link"
                     >
                       Logout
-                    </Link>
+                    </Link> */}
                   </>
                 ) : ["md", "general_manager", "ch"].includes(type) ? (
                   <>
-                    <p className="total" id="nav-link">
-                      Total
+                    <p className="total">
+                      Total : <nobr />
+                      <span
+                        className={
+                          total > 0
+                            ? "text-success font-weight-bold"
+                            : "text-danger font-weight-bold"
+                        }
+                        id="nav-link"
+                      >
+                        {total}
+                      </span>
                     </p>
                     {/* <Link className="m-2" to="/" id="nav-link">
                       Approve
                     </Link> */}
-                    <Button
+                    {/* <Button
                       variant="link"
                       id="nav-link"
                       onClick={() => handleOnClick()}
@@ -209,21 +282,55 @@ export default function Header() {
                       id="nav-link"
                     >
                       Logout
-                    </Link>
+                    </Link> */}
                   </>
                 ) : ["manager"].includes(type) ? (
                   <>
-                    <p className="total" id="nav-link">
-                      Total
+                    <p className="total">
+                      Total : <nobr />
+                      <span
+                        className={
+                          total > 0
+                            ? "text-success font-weight-bold"
+                            : "text-danger font-weight-bold"
+                        }
+                        id="nav-link"
+                      >
+                        {total}
+                      </span>
                     </p>
-                    <Link
-                      className="m-2"
-                      to="/manager/addClientDetails"
-                      id="nav-link"
-                    >
-                      Add Client details
-                    </Link>
-                    <Button
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        className="toggle"
+                        variant=""
+                        id="dropdown-basic dropdownMenu dropdown-autoclose-true "
+                      >
+                        {/* <img src={profilepic} alt="profile" className="img" /> */}
+                        <p id="nav-link" className="username">
+                          Client
+                        </p>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Row>
+                          <Link
+                            className="m-2"
+                            to="/manager/addClientDetails"
+                            id="nav-link"
+                          >
+                            Add Client details
+                          </Link>
+                          <Link
+                            className="m-2"
+                            to="/manager/addClientNames"
+                            id="nav-link"
+                          >
+                            Add Client Names
+                          </Link>
+                        </Row>
+                      </Dropdown.Menu>
+                    </Dropdown>
+
+                    {/* <Button
                       variant="link"
                       id="nav-link"
                       onClick={() => handleOnClick()}
@@ -237,32 +344,60 @@ export default function Header() {
                       id="nav-link"
                     >
                       Logout
-                    </Link>
+                    </Link> */}
                   </>
                 ) : ["lead"].includes(type) ? (
                   <>
-                    <p className="total" id="nav-link">
-                      Total
+                    <p className="total">
+                      Total :
+                      <nobr />
+                      <span
+                        className={
+                          total > 0
+                            ? "text-success font-weight-bold"
+                            : "text-danger font-weight-bold"
+                        }
+                        id="nav-link"
+                      >
+                        {total}
+                      </span>
                     </p>
-                    <Button
-                      variant="link"
-                      id="nav-link"
-                      onClick={() => handleOnClick()}
-                    >
-                      Profile
-                    </Button>
-                    <Link
-                      className="m-2"
-                      to="/"
-                      onClick={handlefunction}
-                      id="nav-link"
-                    >
-                      Logout
-                    </Link>
                   </>
                 ) : (
                   ""
                 ))}
+              <Dropdown>
+                <Dropdown.Toggle
+                  className="toggle"
+                  variant=""
+                  id="dropdown-basic dropdownMenu dropdown-autoclose-true "
+                >
+                  {/* <img src={profilepic} alt="profile" className="img" /> */}
+                  <p id="nav-link" className="username">
+                    My profile
+                  </p>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Row>
+                    <Button
+                      variant="link"
+                      className="m-2"
+                      id="nav-link"
+                      onClick={() => handleOnClick()}
+                    >
+                      {user}
+                    </Button>
+                    <Link
+                      className="m-2"
+                      to="/"
+                      onClick={handlefunction}
+                      id="nav-link"
+                    >
+                      Logout
+                    </Link>
+                  </Row>
+                </Dropdown.Menu>
+              </Dropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>

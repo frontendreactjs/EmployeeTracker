@@ -45,7 +45,15 @@
   /* color: #14e1de; */
 }
 .total {
-  margin-top: 15px;
+  margin: 15px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  background-color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(107, 64, 226);
 }
 .color-nav {
   /* animation: upDown 1s 0.5s 1 linear; */

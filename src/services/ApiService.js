@@ -110,6 +110,7 @@ export default new (class ApiService {
   getAllRoles() {
     return axios.get(`${BASE_URL}/api/v1/admin/all-roles`, auth());
   }
+  // register
   signup(data, id) {
     // http://localhost:2022/api/v1/admin/sign-up?roleName=LEAD
     return axios.post(
@@ -117,5 +118,25 @@ export default new (class ApiService {
       data,
       auth()
     );
+  }
+  insetDepart(data) {
+    // http://localhost:2022/api/v1/fields/insert-depart
+    return axios.post(`${BASE_URL}/api/v1/fields/insert-depart`, data, auth());
+  }
+  totalLead() {
+    // http://10.81.4.195:2022/Total/lead
+    return axios.get(`${BASE_URL}/Total/lead`, auth());
+  }
+  totalManager() {
+    return axios.get(`${BASE_URL}/Total/managerCalculation`, auth());
+  }
+  totalGeneralManager() {
+    return axios.get(`${BASE_URL}/Total/generalManagerCalculation`, auth());
+  }
+  totalCH() {
+    return axios.get(`${BASE_URL}/Total/countryHeadCalculation`, auth());
+  }
+  totalMD() {
+    return axios.get(`${BASE_URL}/Total/managingDirectorCalculation`, auth());
   }
 })();

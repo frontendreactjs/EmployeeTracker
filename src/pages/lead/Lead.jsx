@@ -27,7 +27,9 @@ function Lead() {
   return (
     <div className="lead">
       {status ? (
-        employees.map((employee) => <Cards key={employee.id} data={employee} />)
+        employees.map((employee) => (
+          <Cards key={employee.empId} data={employee} />
+        ))
       ) : (
         <p className="text-danger mb-1">{msg}</p>
       )}

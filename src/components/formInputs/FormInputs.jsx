@@ -6,7 +6,15 @@ export function FormInputs(props) {
   return (
     <>
       <Form.Group className="mb-3 px-2">
-        <Form.Label htmlFor={props.id}>{props.title}</Form.Label>
+        <Form.Label htmlFor={props.id}>
+          {props.title}
+          {props.required && (
+            <>
+              <nobr />
+              <span className="text-danger"> *</span>
+            </>
+          )}
+        </Form.Label>
         <Form.Control
           name={props.name}
           id={props.id}
