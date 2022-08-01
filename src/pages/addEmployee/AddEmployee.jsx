@@ -18,7 +18,7 @@ const AddEmployee = () => {
   const [departs, setDeparts] = useState(null);
   const [subDep, setSubDep] = useState(null);
   const [supId, setSupId] = useState(null);
-  const [errors, setErrors] = useState(false);
+  // const [errors, setErrors] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,14 +54,18 @@ const AddEmployee = () => {
         alert("successfull");
         navigate("/hr");
         setStatus(false);
-        setErrors(false);
+        // setErrors(false);
         setMsg("");
       })
       .catch((error) => {
         console.log(error);
         setStatus(false);
-        setErrors(true);
-        setMsg(error.message);
+        // setErrors(true);
+        setMsg(
+          error.response.data.errormessage
+            ? error.response.data.errormessage
+            : "Something went wrong"
+        );
       });
   };
 
@@ -107,13 +111,13 @@ const AddEmployee = () => {
         console.log(res.data);
         setEmpTypes(res.data);
         setStatus(false);
-        setErrors(false);
+        // setErrors(false);
       })
       .catch((error) => {
         console.log(error);
         setEmpTypes(null);
         setStatus(false);
-        setErrors(true);
+        // setErrors(true);
       });
 
     ApiService.getAllDesg()
@@ -200,6 +204,9 @@ const AddEmployee = () => {
       id: "phoneNo",
       title: "Phone Number",
       name: "phoneNo",
+      maxLength: "10",
+      pattern: "[0-9]{10}",
+      message: "Please enter valid phone number",
       type: "tel",
       placeholder: "Enter Phone Number",
       required: true,
@@ -401,10 +408,10 @@ const AddEmployee = () => {
       id: "lancesoft",
       title: "Lancesoft Id",
       name: "lancesoft",
-      // pattern: "[LSI]{3}",
+      pattern: "[LSI]{3}[0-9]{3,5}",
       type: "text",
       placeholder: "Enter Lancesoft Id",
-      // message: "Please enter valid Lancesoft Id i.e. LSI123",
+      message: "Please enter valid Lancesoft Id i.e. LSI123",
       required: true,
       defaultValue: data.masterEmployeeDetails?.lancesoft,
       handleChange: handleMasterData,
@@ -438,7 +445,7 @@ const AddEmployee = () => {
           >
             <option value="">{status ? "loading" : "select "}</option>
             {desgs?.map((type) => (
-              <option key={type.desgNames} value={type.desgId}>
+              <option key={type.desgId} value={type.desgId}>
                 {type.desgNames}
               </option>
             ))}
@@ -465,7 +472,7 @@ const AddEmployee = () => {
           >
             <option value="">{status ? "loading" : "select "}</option>
             {supId?.map((type) => (
-              <option key={type.desgId} value={type.empId}>
+              <option key={type.lancesoftId} value={type.empId}>
                 {type.firstName} {type.lastName} ({type.lancesoftId})
               </option>
             ))}
@@ -673,6 +680,7 @@ const AddEmployee = () => {
           type="date"
           placeholder="Enter Date of Birth"
           required={true}
+          max="2022-07-31"
           defaultValue={data.masterEmployeeDetails?.dob}
           handleChange={(e) => {
             setData({
@@ -755,6 +763,9 @@ const AddEmployee = () => {
                   handleChange={item.handleChange}
                   pattern={item.pattern}
                   message={item.message}
+                  max={item.max}
+                  maxLength={item.maxLength}
+                  // min={item.min}
                 />
               )}
             </Fragment>

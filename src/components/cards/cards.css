@@ -32,17 +32,23 @@
   /* height: 15rem; */
 }
 .employees {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   font-weight: bold;
   color: #5485d8;
   cursor: pointer;
-  margin-bottom: 5px;
-  margin-top: 5px;
+  margin-bottom: -20px;
+  /* margin-top: 5px; */
 }
 .employees:hover {
   color: #1c5ac5;
-  font-size: 20px;
-  margin-bottom: 5px;
-  margin-top: 5px;
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* flex-wrap: wrap; */
+  /* font-size: 20px; */
+  /* margin-bottom: 5px;
+  margin-top: 5px; */
 }
 
 .card-btn {

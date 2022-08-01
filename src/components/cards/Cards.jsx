@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 // import ApiService from "../../services/ApiService";
 // import { useNavigate } from "react-router-dom";
 import ModelComponent from "../model/ModelComponent";
-import { Link } from "react-router-dom";
 import "./cards.css";
 import ApiService from "../../services/ApiService";
 function Cards(props) {
@@ -122,7 +121,7 @@ function Cards(props) {
                       </span>
                     )}
                     {employee?.map((emp, index) => (
-                      <div key={index}>
+                      <Fragment key={index}>
                         <span
                           className="employees"
                           onClick={() => handleClick(emp.empId)}
@@ -135,7 +134,7 @@ function Cards(props) {
                         </span>
 
                         <br />
-                      </div>
+                      </Fragment>
                     ))}
                   </>
                 )}

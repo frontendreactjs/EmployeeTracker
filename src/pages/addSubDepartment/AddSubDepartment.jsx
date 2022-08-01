@@ -1,12 +1,13 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FormInputs } from "../../components/formInputs/FormInputs";
 import ApiService from "../../services/ApiService";
 
-export default function AddDepartment() {
+export function AddSubDepartment() {
   const [data, setData] = useState({});
   const [status, setStatus] = useState(false);
+  const [departs, setDeparts] = useState([]);
   const [msg, setMsg] = useState("");
   //   const [errors, setErrors] = useState(false);
   const handleChange = (e) => {
@@ -15,14 +16,42 @@ export default function AddDepartment() {
   };
   const formData = [
     {
-      id: "depart",
-      title: "Department name",
-      name: "depart",
+      id: "subDepartmentNames",
+      title: "Sub department name",
+      name: "subDepartmentNames",
       type: "text",
-      placeholder: "Enter department name",
+      placeholder: "Enter sub department name",
       required: true,
-      defaultValue: data.depart,
+      defaultValue: data.subDepartmentNames,
       handleChange: handleChange,
+    },
+    {
+      id: "departId",
+      data: (
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="departId">
+            Department
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
+          <Form.Select
+            required
+            id="departId"
+            aria-label="Department"
+            className="selectInput"
+            name="departId"
+            onChange={handleChange}
+          >
+            <option value="">{status ? "loading" : "select "}</option>
+            {/* <option value="0">N/A</option> */}
+            {departs?.map((type) => (
+              <option key={type.depart} value={type.departId}>
+                {type.depart}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      ),
     },
   ];
   const navigate = useNavigate();
@@ -30,7 +59,7 @@ export default function AddDepartment() {
     e.preventDefault();
     setStatus(true);
     // setErrors(false);
-    ApiService.insetDepart(data)
+    ApiService.addSubDepart(data, data.departId)
       .then((res) => {
         console.log(res.data);
         alert("successfull");
@@ -46,9 +75,23 @@ export default function AddDepartment() {
         setMsg(error.response.data.errorMessage);
       });
   };
+
+  useEffect(() => {
+    ApiService.getAllDepart()
+      .then((res) => {
+        console.log(res.data);
+        setDeparts(res.data);
+        setMsg("");
+      })
+      .catch((error) => {
+        console.log(error);
+        setDeparts(null);
+        setMsg(error.response.data.errorMessage);
+      });
+  }, []);
   return (
     <div id="add-employee" className="container-sm ">
-      <h1 className="title text-center">Add Department</h1>
+      <h1 className="title text-center">Add Sub Department</h1>
       <Form onSubmit={handleSubmit}>
         <div className="form">
           {formData.map((item) => (
@@ -84,11 +127,6 @@ export default function AddDepartment() {
             Please wait while we are processing your request.
           </p>
         )}
-        {/* {errors && (
-                <p className="text-danger mb-2">
-                  Network error. Please try again later.
-                </p>
-              )} */}
         {<p className="text-danger mb-2">{msg}</p>}
       </Form>
     </div>

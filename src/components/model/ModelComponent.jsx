@@ -281,8 +281,6 @@ function ModelComponent(props) {
                     // onChange={handleChange}
                   />
                 </Form.Group> */}
-              </Col>
-              <Col className="break">
                 <Form.Group className="mb-3">
                   <Form.Label htmlFor="subDepartName">
                     Sub department Name
@@ -298,6 +296,8 @@ function ModelComponent(props) {
                     onChange={handleChange}
                   />
                 </Form.Group>
+              </Col>
+              <Col>
                 <Form.Group className="mb-3">
                   <Form.Label htmlFor="designation">designation</Form.Label>
                   <Form.Control
@@ -325,13 +325,13 @@ function ModelComponent(props) {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="tenure">Bench Tenure</Form.Label>
+                  <Form.Label htmlFor="benchTenure">Bench Tenure</Form.Label>
                   <Form.Control
                     disabled
-                    id="tenure"
+                    id="benchTenure"
                     type="text"
-                    name="tenure"
-                    defaultValue={data.internalExpenses?.tenure}
+                    name="benchTenure"
+                    defaultValue={data.internalExpenses?.benchTenure}
                     // onChange={handleChange}
                   />
                 </Form.Group>
@@ -427,22 +427,6 @@ function ModelComponent(props) {
                         onChange={handleChange}
                       />
                     </Form.Group>
-                  </>
-                )}
-              </Col>
-              <Col
-                className={
-                  ["lead", "Consultant"].includes(
-                    data.employeeDetailsResponse?.designation
-                  )
-                    ? "break"
-                    : ""
-                }
-              >
-                {["lead", "Consultant"].includes(
-                  data.employeeDetailsResponse?.designation
-                ) && (
-                  <>
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="poSdate">PO Start date</Form.Label>
                       <Form.Control
@@ -457,6 +441,22 @@ function ModelComponent(props) {
                         onChange={handleChange}
                       />
                     </Form.Group>
+                  </>
+                )}
+              </Col>
+              <Col
+              // className={
+              //   ["lead", "Consultant"].includes(
+              //     data.employeeDetailsResponse?.designation
+              //   )
+              //     ? "break"
+              //     : ""
+              // }
+              >
+                {["lead", "Consultant"].includes(
+                  data.employeeDetailsResponse?.designation
+                ) && (
+                  <>
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="poEdate">PO end date</Form.Label>
                       <Form.Control
@@ -468,6 +468,42 @@ function ModelComponent(props) {
                         name="poEdate"
                         title="enter PO end date"
                         defaultValue={data.employeesAtClientsDetails?.poedate}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalEarningAtclient">
+                        Client email
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="clientEmail"
+                        type="email"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder="please enter Client mail"
+                        name="clientEmail"
+                        title="enter client mail"
+                        defaultValue={
+                          data.employeesAtClientsDetails?.clientEmail
+                        }
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalEarningAtclient">
+                        Client Manager Name
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="clientManagerName"
+                        type="email"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder="please enter client Manager Name"
+                        name="clientManagerName"
+                        title="enter client Manager Name"
+                        defaultValue={
+                          data.employeesAtClientsDetails?.clientManagerName
+                        }
                         onChange={handleChange}
                       />
                     </Form.Group>

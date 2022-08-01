@@ -25,6 +25,9 @@ export function FormInputs(props) {
           onChange={props.handleChange}
           pattern={props.pattern}
           title={props.message}
+          maxLength={props.maxLength ? props.maxLength : null}
+          max={props.max}
+          min={props.min}
         />
       </Form.Group>
     </>

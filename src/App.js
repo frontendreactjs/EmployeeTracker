@@ -21,6 +21,10 @@ import { Ch } from "./pages/ch/Ch";
 import AddClientNames from "./pages/addClientNames/AddClientNames";
 import Register from "./pages/register/Register";
 import AddDepartment from "./pages/addDepartment/AddDepartment";
+import { AddSubDepartment } from "./pages/addSubDepartment/AddSubDepartment";
+import { AddDesignation } from "./pages/addDesignation/AddDesignation";
+import { AddEmpType } from "./pages/addEmpType/AddEmpType";
+import { AddAddressType } from "./pages/addAddressType/AddAddressType";
 
 function App() {
   return (
@@ -45,6 +49,7 @@ function App() {
                 </PrivateRoutes>
               }
             />
+
             <Route
               path="addEmployee"
               element={
@@ -59,6 +64,39 @@ function App() {
               element={
                 <PrivateRoutes>
                   <AddDepartment />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="addSubDepartment"
+              element={
+                <PrivateRoutes>
+                  <AddSubDepartment />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="addDesignation"
+              element={
+                <PrivateRoutes>
+                  <AddDesignation />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="addAddressType"
+              element={
+                <PrivateRoutes>
+                  <AddAddressType />
+                </PrivateRoutes>
+              }
+            />
+
+            <Route
+              path="addEmpType"
+              element={
+                <PrivateRoutes>
+                  <AddEmpType />
                 </PrivateRoutes>
               }
             />

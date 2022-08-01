@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Button } from "react-bootstrap";
 import ApiService from "../../services/ApiService";
 import ModelComponent from "../model/ModelComponent";
+import "./subEmployee.css";
 
 export default function SubEmployee({ id }) {
   let type = sessionStorage.getItem("type");
@@ -49,7 +50,7 @@ export default function SubEmployee({ id }) {
       </Button>
       {viewEmployee &&
         ["manager", "general_manager", "ch", "md", "hr"].includes(type) && (
-          <>
+          <div className="listEmp">
             {subEmp && employee?.length === 0 && (
               <span className="employees">
                 <br />
@@ -57,9 +58,9 @@ export default function SubEmployee({ id }) {
               </span>
             )}
             {employee?.map((emp, index) => (
-              <div key={index}>
+              <Fragment key={index}>
                 <span
-                  className="employees"
+                  className="listOfEmp"
                   onClick={() => handleClick(emp.empId)}
                 >
                   {index + 1}.{" "}
@@ -70,9 +71,9 @@ export default function SubEmployee({ id }) {
                 </span>
 
                 <br />
-              </div>
+              </Fragment>
             ))}
-          </>
+          </div>
         )}
     </div>
   );

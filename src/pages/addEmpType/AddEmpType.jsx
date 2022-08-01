@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FormInputs } from "../../components/formInputs/FormInputs";
 import ApiService from "../../services/ApiService";
 
-export default function AddDepartment() {
+export function AddEmpType() {
   const [data, setData] = useState({});
   const [status, setStatus] = useState(false);
   const [msg, setMsg] = useState("");
@@ -15,13 +15,13 @@ export default function AddDepartment() {
   };
   const formData = [
     {
-      id: "depart",
-      title: "Department name",
-      name: "depart",
+      id: "typeName",
+      title: "Employee Type",
+      name: "typeName",
       type: "text",
-      placeholder: "Enter department name",
+      placeholder: "Enter Employee Type",
       required: true,
-      defaultValue: data.depart,
+      defaultValue: data.typeName,
       handleChange: handleChange,
     },
   ];
@@ -30,7 +30,7 @@ export default function AddDepartment() {
     e.preventDefault();
     setStatus(true);
     // setErrors(false);
-    ApiService.insetDepart(data)
+    ApiService.addEmpType(data)
       .then((res) => {
         console.log(res.data);
         alert("successfull");
@@ -43,12 +43,12 @@ export default function AddDepartment() {
         console.log(error);
         setStatus(false);
         // setErrors(true);
-        setMsg(error.response.data.errorMessage);
+        setMsg(error.response.data.message);
       });
   };
   return (
     <div id="add-employee" className="container-sm ">
-      <h1 className="title text-center">Add Department</h1>
+      <h1 className="title text-center">Add Employee type</h1>
       <Form onSubmit={handleSubmit}>
         <div className="form">
           {formData.map((item) => (
@@ -78,17 +78,11 @@ export default function AddDepartment() {
         <Button as={Link} to="/hr" variant="danger" className="px-2">
           Cancel
         </Button>
-        {/* </Col> */}
         {status && (
           <p className="text-success mb-2">
             Please wait while we are processing your request.
           </p>
         )}
-        {/* {errors && (
-                <p className="text-danger mb-2">
-                  Network error. Please try again later.
-                </p>
-              )} */}
         {<p className="text-danger mb-2">{msg}</p>}
       </Form>
     </div>

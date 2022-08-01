@@ -1,13 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FormInputs } from "../../components/formInputs/FormInputs";
 import ApiService from "../../services/ApiService";
 
-export default function AddDepartment() {
+export function AddDesignation() {
   const [data, setData] = useState({});
   const [status, setStatus] = useState(false);
   const [msg, setMsg] = useState("");
+  const [desgs, setDesgs] = useState(null);
   //   const [errors, setErrors] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,14 +16,42 @@ export default function AddDepartment() {
   };
   const formData = [
     {
-      id: "depart",
-      title: "Department name",
-      name: "depart",
+      id: "desgNames",
+      title: "Designation name",
+      name: "desgNames",
       type: "text",
-      placeholder: "Enter department name",
+      placeholder: "Enter designation name",
       required: true,
-      defaultValue: data.depart,
+      defaultValue: data.desgNames,
       handleChange: handleChange,
+    },
+    {
+      id: "desgId",
+      data: (
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="departId">
+            Designation
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
+          <Form.Select
+            required
+            id="desgId"
+            aria-label="Department"
+            className="selectInput"
+            name="desgId"
+            onChange={handleChange}
+          >
+            <option value="">{status ? "loading" : "select "}</option>
+            {/* <option value="0">N/A</option> */}
+            {desgs?.map((type) => (
+              <option key={type.desgId} value={type.desgId}>
+                {type.desgNames}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      ),
     },
   ];
   const navigate = useNavigate();
@@ -30,7 +59,7 @@ export default function AddDepartment() {
     e.preventDefault();
     setStatus(true);
     // setErrors(false);
-    ApiService.insetDepart(data)
+    ApiService.addDesg(data, data.desgId)
       .then((res) => {
         console.log(res.data);
         alert("successfull");
@@ -46,9 +75,24 @@ export default function AddDepartment() {
         setMsg(error.response.data.errorMessage);
       });
   };
+
+  useEffect(() => {
+    ApiService.getAllDesg()
+      .then((res) => {
+        console.log(res.data);
+        setDesgs(res.data);
+        setMsg("");
+      })
+      .catch((error) => {
+        console.log(error);
+        setDesgs(null);
+        setMsg(error.response.data.errorMessage);
+      });
+  }, []);
+
   return (
     <div id="add-employee" className="container-sm ">
-      <h1 className="title text-center">Add Department</h1>
+      <h1 className="title text-center">Add designation</h1>
       <Form onSubmit={handleSubmit}>
         <div className="form">
           {formData.map((item) => (
@@ -84,11 +128,6 @@ export default function AddDepartment() {
             Please wait while we are processing your request.
           </p>
         )}
-        {/* {errors && (
-                <p className="text-danger mb-2">
-                  Network error. Please try again later.
-                </p>
-              )} */}
         {<p className="text-danger mb-2">{msg}</p>}
       </Form>
     </div>

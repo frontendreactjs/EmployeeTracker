@@ -12,6 +12,7 @@ function AddClientDetails() {
   const [status, setStatus] = useState(false);
   const [clients, setClients] = useState(null);
   const [emp, setEmp] = useState(null);
+  const [msg, setMsg] = useState("");
   let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,18 +26,19 @@ function AddClientDetails() {
     e.preventDefault();
     setStatus(true);
     // setErrors(false);
-    ApiService.addClientDetails(data, data.clientsId, data.empId)
+    ApiService.addClientDetails(data, data.clientsId, data.employeeID)
       .then((res) => {
         console.log(res.data);
         alert("successfull");
         navigate(`/${type}`);
         setStatus(false);
-        setStatus(false);
+        setMsg("");
       })
       .catch((error) => {
         console.log(error);
         setStatus(true);
         setErrors(false);
+        setMsg(error.response.data.errorMessage);
       });
   };
 
@@ -88,16 +90,26 @@ function AddClientDetails() {
         </Form.Group>
       ),
     },
-    // {
-    //   id: "employeeID",
-    //   title: "Employee ID",
-    //   name: "empId",
-    //   type: "text",
-    //   placeholder: "Enter Employee ID",
-    //   required: true,
-    //   defaultValue: data.empId,
-    //   handleChange: handleChange,
-    // },
+    {
+      id: "clientEmail",
+      title: "client email",
+      name: "clientEmail",
+      type: "email",
+      placeholder: "Enter client email",
+      required: true,
+      defaultValue: data.clientEmail,
+      handleChange: handleChange,
+    },
+    {
+      id: "clientManagerName",
+      title: "Client Manager Name",
+      name: "clientManagerName",
+      type: "text",
+      placeholder: "Enter client Manager Name",
+      required: true,
+      defaultValue: data.clientManagerName,
+      handleChange: handleChange,
+    },
     {
       id: "clientsId",
       data: (
@@ -211,6 +223,13 @@ function AddClientDetails() {
         <Button variant="primary" type="submit">
           Submit
         </Button>
+        {status && (
+          <p className="text-success mb-2">
+            Please wait while we are processing your request.
+          </p>
+        )}
+
+        {<p className="text-danger mb-2">{msg}</p>}
       </Form>
     </div>
   );

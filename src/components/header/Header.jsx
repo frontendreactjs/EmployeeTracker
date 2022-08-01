@@ -108,12 +108,12 @@ export default function Header() {
               <Link className="m-2" to="/" id="nav-link"></Link>
             </Nav>
             <Nav id="nav">
+              {" "}
               {[null, undefined].includes(token) && (
                 <Link className="m-2" to="/" id="nav-link">
                   Login
                 </Link>
               )}
-
               {![null, undefined].includes(token) &&
                 (["finance"].includes(type) ? (
                   <>
@@ -200,14 +200,14 @@ export default function Header() {
                       <Dropdown.Menu>
                         <Row>
                           <Link className="m-2" to="/hr/register" id="nav-link">
-                            Signup
+                            Create Employee Credentials
                           </Link>
                           <Link
                             className="m-2"
                             to="/hr/addEmployee"
                             id="nav-link"
                           >
-                            Add Employee
+                            Add Employee details
                           </Link>
 
                           <Link
@@ -215,7 +215,36 @@ export default function Header() {
                             to="/hr/addDepartment"
                             id="nav-link"
                           >
-                            Add department
+                            Add departments
+                          </Link>
+                          <Link
+                            className="m-2"
+                            to="/hr/addSubDepartment"
+                            id="nav-link"
+                          >
+                            Add Sub departments
+                          </Link>
+
+                          <Link
+                            className="m-2"
+                            to="/hr/addAddressType"
+                            id="nav-link"
+                          >
+                            Add address type
+                          </Link>
+                          <Link
+                            className="m-2"
+                            to="/hr/addDesignation"
+                            id="nav-link"
+                          >
+                            Add designation
+                          </Link>
+                          <Link
+                            className="m-2"
+                            to="/hr/addEmpType"
+                            id="nav-link"
+                          >
+                            Add employee type
                           </Link>
                           <Link
                             className="m-2"
@@ -253,7 +282,7 @@ export default function Header() {
                 ) : ["md", "general_manager", "ch"].includes(type) ? (
                   <>
                     <p className="total">
-                      Total : <nobr />
+                      {total > 0 ? "Profit" : "Loss"}: <nobr />
                       <span
                         className={
                           total > 0
@@ -287,7 +316,7 @@ export default function Header() {
                 ) : ["manager"].includes(type) ? (
                   <>
                     <p className="total">
-                      Total : <nobr />
+                      {total > 0 ? "Profit" : "Loss"} : <nobr />
                       <span
                         className={
                           total > 0
@@ -349,7 +378,7 @@ export default function Header() {
                 ) : ["lead"].includes(type) ? (
                   <>
                     <p className="total">
-                      Total :
+                      {total > 0 ? "Profit" : "Loss"} :
                       <nobr />
                       <span
                         className={

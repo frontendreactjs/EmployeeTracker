@@ -18,7 +18,7 @@ function Register() {
       [name]: value,
     }));
   };
-  const [errors, setErrors] = useState(false);
+  // const [errors, setErrors] = useState(false);
   const navigate = useNavigate();
 
   const formData = [
@@ -65,10 +65,13 @@ function Register() {
     },
     {
       id: "phoneNo",
-      title: "Phone number",
+      title: "Phone Number",
       name: "phoneNo",
-      type: "phoneNo",
-      placeholder: "Enter phone number",
+      maxLength: "10",
+      pattern: "[0-9]{10}",
+      message: "Please enter valid phone number",
+      type: "tel",
+      placeholder: "Enter Phone Number",
       required: true,
       defaultValue: data.phoneNo,
       handleChange: handleChange,
@@ -114,14 +117,14 @@ function Register() {
         console.log(res.data);
         setRoles(res.data);
         setStatus(false);
-        setErrors(false);
+        // setErrors(false);
         setMsg("");
       })
       .catch((error) => {
         console.log(error);
         setRoles(null);
         setStatus(false);
-        setErrors(true);
+        // setErrors(true);
         setMsg(error.message);
       });
   }, []);
@@ -138,7 +141,7 @@ function Register() {
       .catch((error) => {
         console.log(error);
         setStatus(false);
-        setErrors(true);
+        // setErrors(true);
         setMsg(error.response.data.errormessage);
       });
     console.log(data);
@@ -165,6 +168,9 @@ function Register() {
                   handleChange={item.handleChange}
                   pattern={item.pattern}
                   message={item.message}
+                  max={item.max}
+                  maxLength={item.maxLength}
+                  // min={item.min}
                 />
               )}
             </Fragment>

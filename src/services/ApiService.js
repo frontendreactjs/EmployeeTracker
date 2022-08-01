@@ -139,4 +139,36 @@ export default new (class ApiService {
   totalMD() {
     return axios.get(`${BASE_URL}/Total/managingDirectorCalculation`, auth());
   }
+  addSubDepart(data, id) {
+    // http://localhost:2022/api/v1/fields/insert-sub-depart/5
+    return axios.post(
+      `${BASE_URL}/api/v1/fields/insert-sub-depart/${id}`,
+      data,
+      auth()
+    );
+  }
+  addDesg(data, id) {
+    // http://localhost:2022/api/v1/fields/insert-desig?id=10
+    return axios.post(
+      `${BASE_URL}/api/v1/fields/insert-desig?id=${id}`,
+      data,
+      auth()
+    );
+  }
+  addEmpType(data) {
+    // http://localhost:2022/api/v1/fields/insert-employee-type
+    return axios.post(
+      `${BASE_URL}/api/v1/fields/insert-employee-type`,
+      data,
+      auth()
+    );
+  }
+  addAddType(data) {
+    // http://localhost:2022/api/v1/fields/insert-adsress-types
+    return axios.post(
+      `${BASE_URL}/api/v1/fields/insert-adsress-types`,
+      data,
+      auth()
+    );
+  }
 })();
