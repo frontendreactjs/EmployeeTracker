@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(false);
   const [status, setStatus] = useState(false);
+  const [msg, setMsg] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     const loginData = { username: username, password: password };
@@ -32,11 +33,14 @@ const Login = () => {
         setErrors(false);
         // alert(`Login Successful `);
         navigate(`/${role}`);
+        setMsg("");
+        setErrors(false);
       })
       .catch((error) => {
         console.log(error);
         setStatus(false);
         setErrors(true);
+        setMsg(error.message);
       });
   };
   return (
@@ -59,7 +63,8 @@ const Login = () => {
         </Form.Group>
         {errors && (
           <p className="text-danger mb-1">
-            The provided credentials do not match our records.
+            {msg}
+            {/* The provided credentials do not match our records. */}
           </p>
         )}
         <Form.Group className="mb-3">
