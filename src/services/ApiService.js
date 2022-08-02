@@ -1,7 +1,7 @@
 import axios from "axios";
 // const BASE_URL = 'https://lsi-employeetracker.herokuapp.com'; // heruko.
-// const BASE_URL = "http://18.206.244.251:8181/employee-0.0.1-SNAPSHOT"; // devops
-const BASE_URL = "http://10.81.4.195:2022"; // umer pc
+const BASE_URL = "http://52.90.1.76:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // devops
+// const BASE_URL = "http://10.81.4.195:2022"; // umer pc
 // const BASE_URL = "http://10.81.3.30:9090"; // charan pc
 //Header
 
