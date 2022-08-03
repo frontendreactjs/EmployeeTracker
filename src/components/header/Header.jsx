@@ -212,10 +212,54 @@ export default function Header() {
 
                           <Link
                             className="m-2"
+                            to="/hr/addEmpType"
+                            id="nav-link"
+                          >
+                            Add employee type
+                          </Link>
+                          <Link
+                            className="m-2"
+                            to="/hr/promoteEmployee"
+                            id="nav-link"
+                          >
+                            Promote Employee
+                          </Link>
+                          <Link
+                            className="m-2"
+                            to="/hr/exitEmployee"
+                            id="nav-link"
+                          >
+                            Exit Employee
+                          </Link>
+                        </Row>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        className="toggle"
+                        variant=""
+                        id="dropdown-basic dropdownMenu dropdown-autoclose-true "
+                      >
+                        {/* <img src={profilepic} alt="profile" className="img" /> */}
+                        <p id="nav-link" className="username">
+                          Addon option
+                        </p>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Row>
+                          <Link
+                            className="m-2"
                             to="/hr/addDepartment"
                             id="nav-link"
                           >
                             Add departments
+                          </Link>
+                          <Link
+                            className="m-2"
+                            to="/hr/updateSupervisorId"
+                            id="nav-link"
+                          >
+                            Update Supervisor
                           </Link>
                           <Link
                             className="m-2"
@@ -238,27 +282,6 @@ export default function Header() {
                             id="nav-link"
                           >
                             Add designation
-                          </Link>
-                          <Link
-                            className="m-2"
-                            to="/hr/addEmpType"
-                            id="nav-link"
-                          >
-                            Add employee type
-                          </Link>
-                          <Link
-                            className="m-2"
-                            to="/hr/promoteEmployee"
-                            id="nav-link"
-                          >
-                            Promote Employee
-                          </Link>
-                          <Link
-                            className="m-2"
-                            to="/hr/exitEmployee"
-                            id="nav-link"
-                          >
-                            Exit Employee
                           </Link>
                         </Row>
                       </Dropdown.Menu>

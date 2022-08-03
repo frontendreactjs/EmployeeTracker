@@ -17,10 +17,14 @@ function Lead() {
         setEmployees(res.data);
         setStatus(true);
       })
-      .catch((err) => {
+      .catch((error) => {
         setStatus(false);
-        console.log(err);
-        setMsg(err.message);
+        console.log(error);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   }, []);
 
@@ -33,9 +37,6 @@ function Lead() {
       ) : (
         <p className="text-danger mb-1">{msg}</p>
       )}
-      {/* {employees.map((employee) => (
-          <Cards key={employee.empId} data={employee} />
-        ))} */}
     </div>
   );
 }

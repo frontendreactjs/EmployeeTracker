@@ -17,10 +17,10 @@ export function AddDesignation() {
   const formData = [
     {
       id: "desgNames",
-      title: "Designation name",
+      title: "Designation",
       name: "desgNames",
       type: "text",
-      placeholder: "Enter designation name",
+      placeholder: "Enter designation",
       required: true,
       defaultValue: data.desgNames,
       handleChange: handleChange,
@@ -30,7 +30,7 @@ export function AddDesignation() {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="departId">
-            Designation
+            Superior designation
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -72,7 +72,11 @@ export function AddDesignation() {
         console.log(error);
         setStatus(false);
         // setErrors(true);
-        setMsg(error.response.data.errorMessage);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   };
 
@@ -86,7 +90,11 @@ export function AddDesignation() {
       .catch((error) => {
         console.log(error);
         setDesgs(null);
-        setMsg(error.response.data.errorMessage);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   }, []);
 

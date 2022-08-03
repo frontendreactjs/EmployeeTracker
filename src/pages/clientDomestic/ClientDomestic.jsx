@@ -4,13 +4,10 @@ import Expences from "../../components/expences/Expences";
 
 function ClientDomestic() {
   return (
-    // <>
-    //   <Header type="finance" />
     <div id="add-employee" className="container-sm ">
       <h1 className="title text-center">Client Domestic Expences</h1>
       <Expences type="2" />
     </div>
-    // </>
   );
 }
 

@@ -83,7 +83,12 @@ export default new (class ApiService {
     return axios.get(`${BASE_URL}/api/v1/fields/get-all-subDepart`, auth());
   }
   getUnderEmployee(id) {
-    return axios.get(`${BASE_URL}/api/v1/emp/get-under-emps?id=${id}`, auth());
+    if (id >= 0) {
+      return axios.get(
+        `${BASE_URL}/api/v1/emp/get-under-emps?id=${id}`,
+        auth()
+      );
+    }
   }
   addClientDetails(data, cId, eId) {
     // http://localhost:2022/api/v1/emp/inser-empat-client?clientId=5&empId=LSI9908
@@ -168,6 +173,24 @@ export default new (class ApiService {
     return axios.post(
       `${BASE_URL}/api/v1/fields/insert-adsress-types`,
       data,
+      auth()
+    );
+  }
+  getAllClientsByEmpId(id) {
+    // http://localhost:2022/api/v1/emp/get-emp-clientDetails?id=58
+    if (id >= 0) {
+      return axios.get(
+        `${BASE_URL}/api/v1/emp/get-emp-clientDetails?id=${id}`,
+        auth()
+      );
+    }
+  }
+
+  updateSupervisorId(id, sId) {
+    // http://localhost:2022/api/v1/hr/update-supervisor-id?empId=63&newSupId=8
+    return axios.put(
+      `${BASE_URL}/api/v1/hr/update-supervisor-id?empId=${id}&newSupId=${sId}`,
+
       auth()
     );
   }

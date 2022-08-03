@@ -40,7 +40,11 @@ const Login = () => {
         console.log(error);
         setStatus(false);
         setErrors(true);
-        setMsg(error.message);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   };
   return (

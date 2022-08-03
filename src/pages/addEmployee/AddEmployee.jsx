@@ -28,10 +28,16 @@ const AddEmployee = () => {
         .then((res) => {
           console.log(res.data);
           setSupId(res.data);
+          setMsg("");
         })
         .catch((error) => {
           console.log(error);
           setSupId(null);
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
         });
     }
     // setData((prevState) => ({
@@ -62,9 +68,9 @@ const AddEmployee = () => {
         setStatus(false);
         // setErrors(true);
         setMsg(
-          error.response.data.errormessage
-            ? error.response.data.errormessage
-            : "Something went wrong"
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
         );
       });
   };
@@ -171,7 +177,7 @@ const AddEmployee = () => {
   const formData = [
     {
       id: "firstName",
-      title: "Employee first name",
+      title: "First name",
       name: "firstName",
       type: "text",
       placeholder: "Enter Employee first name",
@@ -181,7 +187,7 @@ const AddEmployee = () => {
     },
     {
       id: "lastName",
-      title: "Employee last name",
+      title: "Last name",
       name: "lastName",
       type: "text",
       placeholder: "Enter Employee last name",
@@ -222,7 +228,7 @@ const AddEmployee = () => {
       placeholder: "Enter location",
       required: true,
       defaultValue: data.masterEmployeeDetails?.location,
-      handleChange: handleChange,
+      handleChange: handleMasterData,
     },
     {
       id: "empTypeId",
@@ -351,7 +357,7 @@ const AddEmployee = () => {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="subDepartId">
-            Sub department
+            Sub-department
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -406,7 +412,7 @@ const AddEmployee = () => {
     // },
     {
       id: "lancesoft",
-      title: "Lancesoft Id",
+      title: "Lancesoft ID",
       name: "lancesoft",
       pattern: "[LSI]{3}[0-9]{3,5}",
       type: "text",
@@ -458,7 +464,8 @@ const AddEmployee = () => {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="supervisorId">
-            Supervisor Id
+            {/* Supervisor */}
+            Reports To
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -532,7 +539,7 @@ const AddEmployee = () => {
     },
     {
       id: "zipCod",
-      title: "pinCode",
+      title: "Pincode",
       name: "zipCod",
       type: "number",
       placeholder: "Enter pinCode",
@@ -556,7 +563,7 @@ const AddEmployee = () => {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="addTypeId">
-            Address Type
+            Address status
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -582,7 +589,10 @@ const AddEmployee = () => {
       id: "isInternal",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="isInternal">IsInternal</Form.Label>
+          <Form.Label htmlFor="isInternal">
+            Working internal ?<nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="isInternal"

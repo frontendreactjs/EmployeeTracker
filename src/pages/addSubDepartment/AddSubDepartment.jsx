@@ -72,7 +72,11 @@ export function AddSubDepartment() {
         console.log(error);
         setStatus(false);
         // setErrors(true);
-        setMsg(error.response.data.errorMessage);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   };
 
@@ -86,7 +90,11 @@ export function AddSubDepartment() {
       .catch((error) => {
         console.log(error);
         setDeparts(null);
-        setMsg(error.response.data.errorMessage);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   }, []);
   return (

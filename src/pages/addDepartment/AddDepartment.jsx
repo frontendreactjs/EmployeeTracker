@@ -43,7 +43,11 @@ export default function AddDepartment() {
         console.log(error);
         setStatus(false);
         // setErrors(true);
-        setMsg(error.response.data.errorMessage);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   };
   return (

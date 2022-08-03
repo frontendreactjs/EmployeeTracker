@@ -16,10 +16,14 @@ function MD() {
         setEmployees(res.data);
         setStatus(true);
       })
-      .catch((err) => {
+      .catch((error) => {
         setStatus(false);
-        console.log(err);
-        setMsg(err.message);
+        console.log(error);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   }, []);
 
@@ -40,29 +44,6 @@ function MD() {
       )}
     </div>
   );
-  // const employee = [
-  //   {
-  //     id: 1,
-  //     employeeId: "",
-  //     employeeName: "",
-  //     button: "View profile",
-  //     button2: "View Employees",
-  //   },
-  //   {
-  //     id: 2,
-  //     employeeId: "",
-  //     employeeName: "",
-  //     button: "View profile",
-  //     button2: "View Employees",
-  //   },
-  // ];
-  // return (
-  //   <>
-  //     {employee.map((employee) => (
-  //       <Cards key={employee.id} data={employee} type="md" />
-  //     ))}
-  //   </>
-  // );
 }
 
 export default MD;

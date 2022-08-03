@@ -1,4 +1,3 @@
-// import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login";
@@ -25,6 +24,7 @@ import { AddSubDepartment } from "./pages/addSubDepartment/AddSubDepartment";
 import { AddDesignation } from "./pages/addDesignation/AddDesignation";
 import { AddEmpType } from "./pages/addEmpType/AddEmpType";
 import { AddAddressType } from "./pages/addAddressType/AddAddressType";
+import UpdateSupervisor from "./pages/updateSupervisor/UpdateSupervisor";
 
 function App() {
   return (
@@ -41,6 +41,7 @@ function App() {
                 </PrivateRoutes>
               }
             />
+
             <Route
               path="register"
               element={
@@ -113,6 +114,14 @@ function App() {
               element={
                 <PrivateRoutes>
                   <ExitEmployee />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="updateSupervisorId"
+              element={
+                <PrivateRoutes>
+                  <UpdateSupervisor />
                 </PrivateRoutes>
               }
             />

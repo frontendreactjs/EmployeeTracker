@@ -13,14 +13,18 @@ function Manager() {
 
     ApiService.getAllEmployees()
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setEmployees(res.data);
         setStatus(true);
       })
-      .catch((err) => {
+      .catch((error) => {
         setStatus(false);
-        console.log(err);
-        setMsg(err.message);
+        console.log(error);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   }, []);
 

@@ -22,7 +22,18 @@ function Cards(props) {
     setSubEmp(true);
     setModalShow(true);
   };
-
+  const handleView = (e) => {
+    e.preventDefault();
+    setViewEmployee(!viewEmployee);
+    ApiService.getUnderEmployee(props.data.empId)
+      .then((res) => {
+        console.log(res.data);
+        setEmployee(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const handleOnClick = () => {
     setModalShow(true);
     setSubEmpId("");
@@ -93,21 +104,7 @@ function Cards(props) {
                 View
               </Button>{" "}
               {["View Employees"].includes(props.button2) && (
-                <Button
-                  className="card-btn"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setViewEmployee(!viewEmployee);
-                    ApiService.getUnderEmployee(props.data.empId)
-                      .then((res) => {
-                        console.log(res.data);
-                        setEmployee(res.data);
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                  }}
-                >
+                <Button className="card-btn" onClick={handleView}>
                   {viewEmployee ? "Hide" : "View Employees"}
                 </Button>
               )}

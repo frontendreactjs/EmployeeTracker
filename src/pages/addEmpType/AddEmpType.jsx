@@ -43,7 +43,11 @@ export function AddEmpType() {
         console.log(error);
         setStatus(false);
         // setErrors(true);
-        setMsg(error.response.data.message);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   };
   return (

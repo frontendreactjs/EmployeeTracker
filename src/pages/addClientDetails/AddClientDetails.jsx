@@ -38,7 +38,11 @@ function AddClientDetails() {
         console.log(error);
         setStatus(true);
         setErrors(false);
-        setMsg(error.response.data.errorMessage);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   };
 
@@ -47,19 +51,31 @@ function AddClientDetails() {
       .then((res) => {
         console.log(res.data);
         setClients(res.data);
+        setMsg("");
       })
       .catch((error) => {
         console.log(error);
         setClients(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
     ApiService.getEmployeeId()
       .then((res) => {
         console.log(res.data);
         setEmp(res.data);
+        setMsg("");
       })
       .catch((error) => {
         console.log(error);
         setEmp(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   }, []);
   const formData = [

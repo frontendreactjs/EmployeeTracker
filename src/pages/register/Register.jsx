@@ -22,35 +22,59 @@ function Register() {
   const navigate = useNavigate();
 
   const formData = [
-    {
-      id: "firstName",
-      title: "Employee first name",
-      name: "firstName",
-      type: "text",
-      placeholder: "Enter Employee first name",
-      required: true,
-      defaultValue: data.firstName,
-      handleChange: handleChange,
-    },
-    {
-      id: "lastName",
-      title: "Employee last name",
-      name: "lastName",
-      type: "text",
-      placeholder: "Enter Employee last name",
-      required: true,
-      defaultValue: data.lastName,
-      handleChange: handleChange,
-    },
+    // {
+    //   id: "firstName",
+    //   title: "Employee first name",
+    //   name: "firstName",
+    //   type: "text",
+    //   placeholder: "Enter Employee first name",
+    //   required: true,
+    //   defaultValue: data.firstName,
+    //   handleChange: handleChange,
+    // },
+    // {
+    //   id: "lastName",
+    //   title: "Employee last name",
+    //   name: "lastName",
+    //   type: "text",
+    //   placeholder: "Enter Employee last name",
+    //   required: true,
+    //   defaultValue: data.lastName,
+    //   handleChange: handleChange,
+    // },
 
+    // {
+    //   id: "email",
+    //   title: "Email",
+    //   name: "email",
+    //   type: "email",
+    //   placeholder: "Enter Email",
+    //   required: true,
+    //   defaultValue: data.email,
+    //   handleChange: handleChange,
+    // },
+
+    // {
+    //   id: "phoneNo",
+    //   title: "Phone Number",
+    //   name: "phoneNo",
+    //   maxLength: "10",
+    //   pattern: "[0-9]{10}",
+    //   message: "Please enter valid phone number",
+    //   type: "tel",
+    //   placeholder: "Enter Phone Number",
+    //   required: true,
+    //   defaultValue: data.phoneNo,
+    //   handleChange: handleChange,
+    // },
     {
-      id: "email",
-      title: "Email",
-      name: "email",
-      type: "email",
-      placeholder: "Enter Email",
+      id: "username",
+      title: "Employee ID",
+      name: "username",
+      type: "username",
+      placeholder: "Enter username",
       required: true,
-      defaultValue: data.email,
+      defaultValue: data.username,
       handleChange: handleChange,
     },
     {
@@ -64,33 +88,14 @@ function Register() {
       handleChange: handleChange,
     },
     {
-      id: "phoneNo",
-      title: "Phone Number",
-      name: "phoneNo",
-      maxLength: "10",
-      pattern: "[0-9]{10}",
-      message: "Please enter valid phone number",
-      type: "tel",
-      placeholder: "Enter Phone Number",
-      required: true,
-      defaultValue: data.phoneNo,
-      handleChange: handleChange,
-    },
-    {
-      id: "username",
-      title: "username",
-      name: "username",
-      type: "username",
-      placeholder: "Enter username",
-      required: true,
-      defaultValue: data.username,
-      handleChange: handleChange,
-    },
-    {
       id: "role",
       data: (
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="role">Role</Form.Label>
+          <Form.Label htmlFor="role">
+            Role
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
           <Form.Select
             required
             id="role"
@@ -125,7 +130,11 @@ function Register() {
         setRoles(null);
         setStatus(false);
         // setErrors(true);
-        setMsg(error.message);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   }, []);
 
@@ -142,7 +151,11 @@ function Register() {
         console.log(error);
         setStatus(false);
         // setErrors(true);
-        setMsg(error.response.data.errormessage);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
     console.log(data);
   };
