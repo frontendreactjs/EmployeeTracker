@@ -188,10 +188,13 @@ export default new (class ApiService {
 
   updateSupervisorId(id, sId) {
     // http://localhost:2022/api/v1/hr/update-supervisor-id?empId=63&newSupId=8
-    return axios.put(
+    return axios.patch(
       `${BASE_URL}/api/v1/hr/update-supervisor-id?empId=${id}&newSupId=${sId}`,
-
       auth()
     );
+  }
+  getEmpIdForSupervisor() {
+    // http://localhost:2022/api/v1/hr/Hr-dropDown
+    return axios.get(`${BASE_URL}/api/v1/hr/Hr-dropDown`, auth());
   }
 })();

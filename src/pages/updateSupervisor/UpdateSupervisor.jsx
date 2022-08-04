@@ -5,80 +5,73 @@ import { Link, useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
 
 export default function UpdateSupervisor() {
-  const [data, setData] = useState({});
+  const [selectedLsid, setSelectedLsid] = useState("");
+  const [selectedEmpId, setSelectedEmpId] = useState();
+  const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(false);
   const [msg, setMsg] = useState("");
-  const [supId, setSupId] = useState(null);
+  const [supData, setSupData] = useState(null);
   const [emp, setEmp] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    ApiService.getEmployeeId()
+    ApiService.getEmpIdForSupervisor()
       .then((res) => {
         console.log(res.data);
         setEmp(res.data);
+        setMsg("");
       })
       .catch((error) => {
         console.log(error);
         setEmp(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
       });
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({ ...data, [name]: value });
-    if (value > 0 && name === "employeeID") {
-      ApiService.supervisorId(value)
-        .then((res) => {
-          console.log(res.data);
-          setSupId(res.data);
-          setMsg("");
-        })
-        .catch((error) => {
-          console.log(error);
-          setSupId(null);
-          setMsg(
-            error.response.data.errorMessage
-              ? error.response.data.errorMessage
-              : error.message
-          );
-        });
-    }
+    setLoading(true);
+    const value = JSON.parse(e.target.value);
+    setSelectedLsid(value.lancesoftId);
+    ApiService.supervisorId(value.desgId)
+      .then((res) => {
+        // console.log(res.data);
+        setSupData(res.data);
+        setMsg("");
+      })
+      .catch((error) => {
+        // console.log(error);
+        setSupData(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
-  // const formData = [
-  //   {
-  //     id: "employeeID",
-  //     data: (
-
-  //     ),
-  //   },
-  //   {
-  //     id: "supervisorId",
-  //     data: (
-
-  //     ),
-  //   },
-  // ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus(true);
-    // setErrors(false);
-    ApiService.updateSupervisorId(data)
+    setMsg("");
+    ApiService.updateSupervisorId(selectedLsid, selectedEmpId)
       .then((res) => {
         console.log(res.data);
-        //   alert("successfull");
         navigate("/hr");
         setStatus(false);
-        // setErrors(false);
         setMsg("");
       })
       .catch((error) => {
         console.log(error);
         setStatus(false);
-        // setErrors(true);
         setMsg(
-          error.response.data.errorMessage
+          error.response.data?.errorMessage
             ? error.response.data.errorMessage
             : error.message
         );
@@ -104,37 +97,44 @@ export default function UpdateSupervisor() {
             name="employeeID"
             onChange={handleChange}
           >
-            <option value="">{status ? "loading" : "select "}</option>
+            <option>{status ? "loading" : "select "}</option>
             {emp?.map((type, index) => (
-              <option key={index} value={type.lancesoftId}>
+              <option key={index} value={JSON.stringify(type)}>
                 {type.firstName} {type.lastName}({type.lancesoftId})
               </option>
             ))}
           </Form.Select>
         </Form.Group>
-        <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="supervisorId">
-            {/* Supervisor */}
-            Reports To
-            <nobr />
-            <span className="text-danger"> *</span>
-          </Form.Label>
-          <Form.Select
-            required
-            id="supervisorId"
-            aria-label="Supervisor Id"
-            className="selectInput"
-            name="supervisorId"
-            onChange={handleChange}
-          >
-            <option value="">{status ? "loading" : "select "}</option>
-            {supId?.map((type) => (
-              <option key={type.lancesoftId} value={type.empId}>
-                {type.firstName} {type.lastName} ({type.lancesoftId})
-              </option>
-            ))}
-          </Form.Select>
-        </Form.Group>
+        {loading ? (
+          <div>loading supervisor data</div>
+        ) : (
+          selectedLsid && (
+            <Form.Group className="mb-3 px-2">
+              <Form.Label htmlFor="supervisorId">
+                {/* Supervisor */}
+                Reports To
+                <nobr />
+                <span className="text-danger"> *</span>
+              </Form.Label>
+              <Form.Select
+                required
+                id="supervisorId"
+                aria-label="Supervisor Id"
+                className="selectInput"
+                name="supervisorId"
+                onChange={(e) => setSelectedEmpId(e.target.value)}
+              >
+                <option value="">{status ? "loading" : "select "}</option>
+                {supData?.map((type) => (
+                  <option key={type.lancesoftId} value={type.empId}>
+                    {type.firstName} {type.lastName} ({type.lancesoftId})(
+                    {type.desgName})
+                  </option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+          )
+        )}
         {/* </div> */}
         <Button className="btn-signup px-2" type="submit">
           Submit
