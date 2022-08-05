@@ -25,6 +25,7 @@ import { AddDesignation } from "./pages/addDesignation/AddDesignation";
 import { AddEmpType } from "./pages/addEmpType/AddEmpType";
 import { AddAddressType } from "./pages/addAddressType/AddAddressType";
 import UpdateSupervisor from "./pages/updateSupervisor/UpdateSupervisor";
+import { UpdateDesignation } from "./pages/updateDesignation/UpdateDesignation";
 
 function App() {
   return (
@@ -92,7 +93,14 @@ function App() {
                 </PrivateRoutes>
               }
             />
-
+            <Route
+              path="updateDesignation"
+              element={
+                <PrivateRoutes>
+                  <UpdateDesignation />
+                </PrivateRoutes>
+              }
+            />
             <Route
               path="addEmpType"
               element={

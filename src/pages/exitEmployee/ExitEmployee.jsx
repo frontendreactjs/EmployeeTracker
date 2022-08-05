@@ -56,7 +56,7 @@ export default function ExitEmployee() {
           <Button variant="primary" type="submit">
             submit
           </Button>{" "}
-          <Button as={Link} to="/dashboard" variant="danger">
+          <Button as={Link} to="/hr" variant="danger">
             Cancel
           </Button>
         </Form>

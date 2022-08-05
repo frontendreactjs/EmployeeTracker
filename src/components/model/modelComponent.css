@@ -34,7 +34,7 @@
 }
 
 #modelSection {
-  animation: upDown 1s 0.5s 1 linear;
+  /* animation: upDown 1s 0.5s 1 linear; */
   /* display: flex; */
   /* flex-wrap: wrap; */
   /* max-width: fit-content; */

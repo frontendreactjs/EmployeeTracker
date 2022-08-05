@@ -30,7 +30,7 @@ export function AddDesignation() {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="departId">
-            Superior designation
+            Reporting person
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -42,8 +42,8 @@ export function AddDesignation() {
             name="desgId"
             onChange={handleChange}
           >
-            <option value="">{status ? "loading" : "select "}</option>
-            {/* <option value="0">N/A</option> */}
+            <option value="">{status ? "loading..." : "select "}</option>
+            <option value="0">N/A</option>
             {desgs?.map((type) => (
               <option key={type.desgId} value={type.desgId}>
                 {type.desgNames}
@@ -59,14 +59,15 @@ export function AddDesignation() {
     e.preventDefault();
     setStatus(true);
     // setErrors(false);
+    console.log(data);
     ApiService.addDesg(data, data.desgId)
       .then((res) => {
         console.log(res.data);
-        alert("successfull");
+        setMsg("");
+        // alert("successfull");
         navigate("/hr");
         setStatus(false);
         // setErrors(false);
-        setMsg("");
       })
       .catch((error) => {
         console.log(error);

@@ -284,7 +284,7 @@ const AddEmployee = () => {
             name="status"
             onChange={handleMasterData}
           >
-            <option value=""> select </option>
+            <option value="">select</option>
             <option value="BENCH">BENCH</option>
             <option value="ACTIVE">ACTIVE</option>
             <option value="EXIT">EXIT</option>
@@ -369,7 +369,7 @@ const AddEmployee = () => {
             name="subDepartId"
             onChange={handleChange}
           >
-            <option value="">{status ? "loading" : "select "}</option>
+            <option value="">{status ? "loading..." : "select "}</option>
             <option value="0">N/A</option>
             {subDep?.map((type) => (
               <option key={type.subDepartmentNames} value={type.subDepartId}>
@@ -449,7 +449,7 @@ const AddEmployee = () => {
             name="desgId"
             onChange={handleChange}
           >
-            <option value="">{status ? "loading" : "select "}</option>
+            <option value="">{status ? "loading..." : "select "}</option>
             {desgs?.map((type) => (
               <option key={type.desgId} value={type.desgId}>
                 {type.desgNames}
@@ -602,8 +602,7 @@ const AddEmployee = () => {
             onChange={handleMasterData}
           >
             <option key="IsInternal" value="">
-              {" "}
-              select{" "}
+              select
             </option>
             <option key="IsInternal true" value="true">
               True

@@ -96,7 +96,7 @@ function AddClientDetails() {
             name="employeeID"
             onChange={handleChange}
           >
-            <option value="">{status ? "loading" : "select "}</option>
+            <option value="">{status ? "loading..." : "select "}</option>
             {emp?.map((type, index) => (
               <option key={index} value={type.lancesoftId}>
                 {type.firstName} {type.lastName}({type.lancesoftId})

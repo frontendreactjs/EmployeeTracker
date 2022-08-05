@@ -212,13 +212,6 @@ export default function Header() {
 
                           <Link
                             className="m-2"
-                            to="/hr/addEmpType"
-                            id="nav-link"
-                          >
-                            Add employee type
-                          </Link>
-                          <Link
-                            className="m-2"
                             to="/hr/promoteEmployee"
                             id="nav-link"
                           >
@@ -256,10 +249,25 @@ export default function Header() {
                           </Link>
                           <Link
                             className="m-2"
+                            to="/hr/addEmpType"
+                            id="nav-link"
+                          >
+                            Add employee type
+                          </Link>
+                          <Link
+                            className="m-2"
                             to="/hr/updateSupervisorId"
                             id="nav-link"
                           >
-                            Update Supervisor
+                            Update reporting person
+                          </Link>
+
+                          <Link
+                            className="m-2"
+                            to="/hr/updateDesignation"
+                            id="nav-link"
+                          >
+                            Update designation
                           </Link>
                           <Link
                             className="m-2"

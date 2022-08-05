@@ -35,6 +35,7 @@ function Cards(props) {
       });
   };
   const handleOnClick = () => {
+    console.log(props.data.empId);
     setModalShow(true);
     setSubEmpId("");
     setSubEmp(false);
@@ -99,7 +100,11 @@ function Cards(props) {
             <>
               <Button
                 className="card-btn"
-                onClick={() => handleOnClick(props.data)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleOnClick(props.data);
+                  console.log(props.data);
+                }}
               >
                 View
               </Button>{" "}

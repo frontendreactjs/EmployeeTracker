@@ -112,7 +112,7 @@ export default function UpdateSupervisor() {
             <Form.Group className="mb-3 px-2">
               <Form.Label htmlFor="supervisorId">
                 {/* Supervisor */}
-                Reports To
+                Reporting person
                 <nobr />
                 <span className="text-danger"> *</span>
               </Form.Label>

@@ -178,23 +178,29 @@ export default new (class ApiService {
   }
   getAllClientsByEmpId(id) {
     // http://localhost:2022/api/v1/emp/get-emp-clientDetails?id=58
-    if (id >= 0) {
-      return axios.get(
-        `${BASE_URL}/api/v1/emp/get-emp-clientDetails?id=${id}`,
-        auth()
-      );
-    }
+
+    return axios.get(
+      `${BASE_URL}/api/v1/emp/get-emp-clientDetails?id=${id}`,
+      auth()
+    );
   }
 
   updateSupervisorId(id, sId) {
-    // http://localhost:2022/api/v1/hr/update-supervisor-id?empId=63&newSupId=8
-    return axios.patch(
-      `${BASE_URL}/api/v1/hr/update-supervisor-id?empId=${id}&newSupId=${sId}`,
+    // http://localhost:2022/api/v1/emp/update-supervisor-id/LSI0633/65
+    return axios.get(
+      `${BASE_URL}/api/v1/hr/update-supervisor-id/${id}/${sId}`,
       auth()
     );
   }
   getEmpIdForSupervisor() {
     // http://localhost:2022/api/v1/hr/Hr-dropDown
     return axios.get(`${BASE_URL}/api/v1/hr/Hr-dropDown`, auth());
+  }
+  updateDesg(id, dId) {
+    // http://localhost:2022/api/v1/hr/update-desg-hierarchy?desgId=89&newSupId=984
+    return axios.get(
+      `${BASE_URL}/api/v1/hr/update-desg-hierarchy?desgId=${id}&newSupId=${dId}`,
+      auth()
+    );
   }
 })();
