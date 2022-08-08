@@ -5,15 +5,17 @@ import { FormInputs } from "../../components/formInputs/FormInputs";
 import ApiService from "../../services/ApiService";
 
 export function AddDesignation() {
-  const [data, setData] = useState({});
+  const [id, setId] = useState();
+  const [name, setName] = useState("");
+
   const [status, setStatus] = useState(false);
   const [msg, setMsg] = useState("");
   const [desgs, setDesgs] = useState(null);
   //   const [errors, setErrors] = useState(false);
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({ ...data, [name]: value });
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+
+  // };
   const formData = [
     {
       id: "desgNames",
@@ -22,8 +24,10 @@ export function AddDesignation() {
       type: "text",
       placeholder: "Enter designation",
       required: true,
-      defaultValue: data.desgNames,
-      handleChange: handleChange,
+      defaultValue: name,
+      handleChange: (e) => {
+        setName(e.target.value);
+      },
     },
     {
       id: "desgId",
@@ -40,7 +44,9 @@ export function AddDesignation() {
             aria-label="Department"
             className="selectInput"
             name="desgId"
-            onChange={handleChange}
+            onChange={(e) => {
+              setId(e.target.value);
+            }}
           >
             <option value="">{status ? "loading..." : "select "}</option>
             <option value="0">N/A</option>
@@ -59,12 +65,11 @@ export function AddDesignation() {
     e.preventDefault();
     setStatus(true);
     // setErrors(false);
-    console.log(data);
-    ApiService.addDesg(data, data.desgId)
+    ApiService.addDesg({ desgNames: name }, id)
       .then((res) => {
         console.log(res.data);
         setMsg("");
-        // alert("successfull");
+
         navigate("/hr");
         setStatus(false);
         // setErrors(false);
@@ -131,7 +136,6 @@ export function AddDesignation() {
         <Button as={Link} to="/hr" variant="danger" className="px-2">
           Cancel
         </Button>
-        {/* </Col> */}
         {status && (
           <p className="text-success mb-2">
             Please wait while we are processing your request.

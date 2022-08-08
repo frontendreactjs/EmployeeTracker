@@ -387,8 +387,8 @@ const AddEmployee = () => {
       type: "text",
       placeholder: "Enter vertical",
       required: true,
-      defaultValue: data.vertical,
-      handleChange: handleChange,
+      defaultValue: data.masterEmployeeDetails?.vertical,
+      handleChange: handleMasterData,
     },
     // {
     //   id: "partice",
@@ -465,7 +465,7 @@ const AddEmployee = () => {
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="supervisorId">
             {/* Supervisor */}
-            Reports To
+            Reporting person
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -478,6 +478,7 @@ const AddEmployee = () => {
             onChange={handleChange}
           >
             <option value="">{status ? "loading" : "select "}</option>
+            <option value="0">N/A</option>
             {supId?.map((type) => (
               <option key={type.lancesoftId} value={type.empId}>
                 {type.firstName} {type.lastName} ({type.lancesoftId})

@@ -357,7 +357,7 @@ function ModelComponent(props) {
                         type="text"
                         placeholder="enter vertical"
                         disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.vertical}
+                        defaultValue={data.masterEmployeeDetails?.vertical}
                         onChange={handleChange}
                       />
                     </Form.Group>
