@@ -131,14 +131,14 @@ export default function Header() {
                         <Row>
                           <Link
                             className="m-2"
-                            to="/clientDomestic"
+                            to="/finance/clientDomestic"
                             id="nav-link"
                           >
                             Client Domestic
                           </Link>
                           <Link
                             className="m-2"
-                            to="/internalDomestic"
+                            to="/finance/internalDomestic"
                             id="nav-link"
                           >
                             Internal Domestic
@@ -160,14 +160,14 @@ export default function Header() {
                         <Row>
                           <Link
                             className="m-2"
-                            to="/clientInternational"
+                            to="/finance/clientInternational"
                             id="nav-link"
                           >
                             Client International
                           </Link>
                           <Link
                             className="m-2"
-                            to="/internalInternational"
+                            to="/finance/internalInternational"
                             id="nav-link"
                           >
                             Internal International
@@ -175,14 +175,6 @@ export default function Header() {
                         </Row>
                       </Dropdown.Menu>
                     </Dropdown>
-                    <Link
-                      className="m-2"
-                      to="/"
-                      onClick={handlefunction}
-                      id="nav-link"
-                    >
-                      Logout
-                    </Link>
                   </>
                 ) : ["hr"].includes(type) ? (
                   <>
