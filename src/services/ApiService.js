@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "https://lsi-employeetracker.herokuapp.com"; // heruko
+const BASE_URL = "http://18.209.60.4:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT/"; // heruko
 // const BASE_URL = "http://10.81.3.190:2022"; // umer pc
 // const BASE_URL = "http://10.81.3.30:9090"; // charan pc
 //Header
